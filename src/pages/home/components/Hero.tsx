@@ -15,7 +15,7 @@ const Hero = () => {
                 Discover More
             </Button>
         </div>
-        <div className="absolute lg:right-[150px] bottom-[200px] lg:bottom-[150px] xl:top-[150px]">
+        <div className="absolute lg:right-[150px] bottom-[50px] lg:bottom-[50px] xl:top-[150px]">
             <AvailabilityFilter/>
         </div>
         </div>

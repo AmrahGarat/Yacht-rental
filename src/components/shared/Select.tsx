@@ -4,12 +4,13 @@ type Props ={
     label: string;
     placeholder: string;
     options: {label: string; value: string}[];
+    className?: string;
 }
 
-export const CustomSelect = ({label,options,placeholder}:Props) => {
+export const CustomSelect = ({label,options,placeholder,className}:Props) => {
   return (
-    <div>
-    <p className="text-[20px]">
+    <div className={`custom-select-container ${className}`}>
+    <p className="text-[17px]">
         {label}
     </p>
       <Select>
