@@ -9,10 +9,10 @@ export default {
     container: {
       center: true,
       padding: {
-        xl: "150px",
-        md: "75px",
-        sm: "37px",
-        DEFAULT: "18px",
+        xl: "50px",
+        md: "25px",
+        sm: "12.5px",
+        DEFAULT: "12.5px",
       },
     },
     screens: {
