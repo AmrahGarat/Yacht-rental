@@ -2,8 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 @layer base {
+  @font-face {
+    font-family: "Unna";
+    src: url("/fonts/Unna-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Unna-Italic";
+    src: url("/fonts/Unna-Italic.ttf") format("truetype");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Unna-Bold";
+    src: url("/fonts/Unna-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Unna-BoldItalic";
+    src: url("/fonts/Unna-BoldItalic.ttf") format("truetype");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
   :root {
-    --background: 0 0% 100%;
+    --background: 240 20% 97%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
@@ -54,34 +82,6 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-  }
-  @font-face {
-    font-family: "Unna";
-    src: url("/fonts/Unna-Regular.ttf") format("truetype");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "Unna-Italic";
-    src: url("/fonts/Unna-Italic.ttf") format("truetype");
-    font-weight: 400;
-    font-style: italic;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "Unna-Bold";
-    src: url("/fonts/Unna-Bold.ttf") format("truetype");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "Unna-BoldItalic";
-    src: url("/fonts/Unna-BoldItalic.ttf") format("truetype");
-    font-weight: 700;
-    font-style: italic;
-    font-display: swap;
   }
 }
 @layer base {
