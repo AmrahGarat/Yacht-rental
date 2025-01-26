@@ -2,7 +2,7 @@ import MainYachtImage from "@/assets/images/main yacht.jpeg"
 import { AvailabilityFilter } from "@/components/shared/availability-filter"
 import { Button } from "@/components/ui/button"
 
-const Hero = () => {
+export const Hero = () => {
 return (
     <div className="relative h-[1150px] w-full text-white">
         <img src={MainYachtImage} alt="main yacht image" className="w-full h-full object-cover" />
