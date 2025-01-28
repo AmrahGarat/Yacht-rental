@@ -11,7 +11,7 @@ return (
                 <Link to="/" className="text-secondary !text-[25px]">See All</Link>
             </Button>
         </div>
-        <div className="grid lg:grid-cols-3 gap-3 xl:gap-6">
+        <div className="grid lg:grid-cols-3 gap-6 lg:gap-3 xl:gap-6 justify-center">
             <PopularYachts/>
             <PopularYachts/>
             <PopularYachts/>

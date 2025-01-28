@@ -1,6 +1,7 @@
 import AboutUs from "./components/AboutUs"
 import { FeaturedYachts } from "./components/FeaturedYachts"
 import Hero from "./components/Hero"
+import { Events } from "./components/Events"
 import { VideoAdd } from "./components/VideoAdd"
 
 const HomePage = () => {
@@ -10,6 +11,7 @@ const HomePage = () => {
       <AboutUs/>
       <VideoAdd/>
       <FeaturedYachts/>
+      <Events/>
     </div>
   )
 }
