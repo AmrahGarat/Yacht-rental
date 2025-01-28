@@ -3,6 +3,7 @@ import { FeaturedYachts } from "./components/FeaturedYachts"
 import Hero from "./components/Hero"
 import { Events } from "./components/Events"
 import { VideoAdd } from "./components/VideoAdd"
+import { Gallery } from "./components/Gallery"
 
 const HomePage = () => {
   return (
@@ -12,6 +13,7 @@ const HomePage = () => {
       <VideoAdd/>
       <FeaturedYachts/>
       <Events/>
+      <Gallery/>
     </div>
   )
 }
