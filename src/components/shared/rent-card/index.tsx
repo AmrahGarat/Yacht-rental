@@ -10,7 +10,7 @@ import YachtSizeImg from "@/assets/icons/yacht-size.svg"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 
-export const PopularYachts = () => {
+export const RentCard = () => {
 const [isLiked, setIsLiked] = useState(false)
 return (
     <div className="w-full bg-white rounded-[20px]">

@@ -1,4 +1,4 @@
-import { PopularYachts } from "@/components/shared/rent-card"
+import {RentCard } from "@/components/shared/rent-card"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 
@@ -12,9 +12,9 @@ return (
             </Button>
         </div>
         <div className="grid lg:grid-cols-3 gap-6 lg:gap-3 xl:gap-6 justify-center">
-            <PopularYachts/>
-            <PopularYachts/>
-            <PopularYachts/>
+            <RentCard/>
+            <RentCard/>
+            <RentCard/>
         </div>
     </div>
 )}
