@@ -9,7 +9,6 @@ export const YachtMainPictures = () => {
   return (
     <div className="relative w-full text-white">
       <div className="flex w-full gap-[2px]">
-        {/* Main Image */}
         <div className="w-[70%]">
           <img
             src={MainYachtImage}
@@ -18,9 +17,7 @@ export const YachtMainPictures = () => {
           />
         </div>
 
-        {/* Image Grid */}
         <div className="w-[30%] grid grid-cols-2 gap-[2px] h-[auto]">
-          {/* Image 1 */}
           <div className="w-full h-full overflow-hidden relative group">
             <img
               src={YachtImage1}
@@ -34,7 +31,6 @@ export const YachtMainPictures = () => {
             />
           </div>
 
-          {/* Image 2 */}
           <div className="w-full h-full overflow-hidden relative group">
             <img
               src={YachtImage2}
@@ -48,7 +44,6 @@ export const YachtMainPictures = () => {
             />
           </div>
 
-          {/* Image 3 */}
           <div className="w-full h-full overflow-hidden relative group">
             <img
               src={YachtImage3}
@@ -62,7 +57,6 @@ export const YachtMainPictures = () => {
             />
           </div>
 
-          {/* Image 4 */}
           <div className="w-full h-full overflow-hidden relative group">
             <img
               src={YachtImage4}

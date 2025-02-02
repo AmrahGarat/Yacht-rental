@@ -2,9 +2,12 @@ import { useState } from "react";
 import GuestsSizeImg from "@/assets/icons/guests-size.svg";
 import BedroomNumberImg from "@/assets/icons/bedroom-number.svg";
 import CrewSizeImg from "@/assets/icons/crew-size.svg";
+import HeartEmptyImg from "@/assets/icons/heart-empty.svg"
+import HeartFilledRedImg from "@/assets/icons/heart-filled-red.svg"
 
-const YachtInformation = () => {
+export const YachtInformation = () => {
 const [isReadMoreVisible, setIsReadMoreVisible] = useState(false);
+const [isLiked, setIsLiked] = useState(false)
 
 const toggleReadMore = () => {
     setIsReadMoreVisible(!isReadMoreVisible);
@@ -101,6 +104,9 @@ return (
                 <img src={CrewSizeImg} alt="Crew size" className="w-5" />
                 <p className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]">55 Crew</p>
             </div>
+            <button onClick={() => setIsLiked(!isLiked)}>
+                <img src={isLiked ? HeartFilledRedImg: HeartEmptyImg} alt="heart" className="w-14"/>
+            </button>
             </div>
             <div className="flex gap-1 items-center">
             <p className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]">Cabin Configuration:</p>
