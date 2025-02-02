@@ -1,3 +1,8 @@
+import { useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { paths } from "@/constants/paths"
+
 import HeartEmptyImg from "@/assets/icons/heart-empty.svg"
 import HeartFilledRedImg from "@/assets/icons/heart-filled-red.svg"
 import YachtFlyingFoxImg from "@/assets/images/yacht-flying-fox.jpeg"
@@ -7,16 +12,20 @@ import CrewSizeImg from "@/assets/icons/crew-size.svg"
 import YachtSizeImg from "@/assets/icons/yacht-size.svg"
 
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
 
 export const RentCard = () => {
 const [isLiked, setIsLiked] = useState(false)
+const navigate = useNavigate();
+const id = "asdc-12d1w-12d1w-12d1w-12d1w"
+function navigateToDetail(){
+    navigate(paths.DETAIL(id))
+}
+
 return (
     <div className="w-full bg-white rounded-[20px]">
-        <img src={YachtFlyingFoxImg} alt="yacht flying fox" className="pb-2 rounded-[20px]" />
+        <img src={YachtFlyingFoxImg} alt="yacht flying fox" className="pb-2 rounded-[20px] cursor-pointer" onClick={navigateToDetail}/>
         <div className="flex justify-between p-4">
-        <h4 className="text-secondary font-[Unna-Italic] text-[24px]">
+        <h4 onClick={navigateToDetail} className="text-secondary font-[Unna-Italic] text-[24px] cursor-pointer hover:underline">
             Flying Fox
         </h4>
         <button onClick={() => setIsLiked(!isLiked)}>

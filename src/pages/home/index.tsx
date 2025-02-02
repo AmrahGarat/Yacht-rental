@@ -7,7 +7,7 @@ import { Gallery } from "./components/Gallery"
 
 const HomePage = () => {
   return (
-    <div className="pt-1 lg:pt-2 pb-8 lg:pb-16">
+    <div className="pb-8 lg:pb-16">
       <Hero/>
       <AboutUs/>
       <VideoAdd/>
