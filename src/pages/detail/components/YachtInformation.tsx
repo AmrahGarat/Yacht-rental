@@ -76,20 +76,14 @@ return (
     <div className="flex flex-wrap">
         <div className="flex flex-col w-full lg:w-2/3 lg:pr-10">
         <h2 className="text-2xl font-[Unna-BoldItalic] mb-6 text-secondary">FLYING FOX YACHT CHARTER</h2>
-
         <div className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]">
             {isReadMoreVisible ? fullText : truncatedText}
-            <button
-            onClick={toggleReadMore}
-            className="text-blue-600 mt-4 underline hover:text-blue-500 transition duration-300"
-            >
+            <button onClick={toggleReadMore} className="text-blue-600 mt-4 underline hover:text-blue-500 transition duration-300">
             {isReadMoreVisible ? "Read Less" : "Read More"}
             </button>
         </div>
         </div>
-
         <div className="flex flex-col gap-4 w-full lg:w-1/3">
-
         <div className="flex flex-col gap-4 p-4 border-b-2 border-secondary">
             <div className="flex gap-4 mb-4">
             <div className="flex gap-1 items-center">
