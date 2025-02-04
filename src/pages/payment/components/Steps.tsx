@@ -11,6 +11,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -19,6 +26,11 @@ const FormSchema = z.object({
   phoneNumber: z.string(),
   address: z.string(),
   city: z.string(),
+  location: z.string(),
+  pickUpDate: z.string(),
+  dropOffDate: z.string(),
+  pickUpTime: z.string(),
+  dropOffTime: z.string(),
 });
 
 type FormType = UseFormReturn<z.infer<typeof FormSchema>>;
@@ -31,6 +43,11 @@ export const Steps = () => {
       phoneNumber: "",
       address: "",
       city: "",
+      location: "",
+      pickUpDate: "",
+      dropOffDate: "",
+      pickUpTime: "",
+      dropOffTime: "",
     },
   });
 
@@ -136,16 +153,136 @@ const RentalStep = ({ form }: { form: FormType }) => {
             Rental Info
           </h2>
           <p className="text-gray-600 text-sm font-medium leading-[150%] tracking-[-0.28px] mt-1 lg:mb-8 mb-6">
-            Please enter your rental date
+            Please enter your rental data
           </p>
         </div>
         <p className="text-gray-600 text-sm font-medium leading-[150%] tracking-[-0.28px] mt-1 lg:mb-8 mb-6">
           Step 2 of 3
         </p>
       </div>
-      <p className="text-secondary font-semibold text-base leading-[20px] tracking-[-0.32px] mb-4 lg:mb-6">
+      <p className="text-secondary font-semibold text-base leading-[20px] tracking-[-0.32px] mb-2 lg:mb-3">
+        Pick - Up / Drop - Off
+      </p>
+      <FormField
+        control={form.control}
+        name="location"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Location</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Location" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="m@example.com">m@example.com</SelectItem>
+                <SelectItem value="m@google.com">m@google.com</SelectItem>
+                <SelectItem value="m@support.com">m@support.com</SelectItem>
+              </SelectContent>
+            </Select>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <p className="text-secondary font-semibold text-base leading-[20px] tracking-[-0.32px] mb-2 lg:mb-3 mt-10 lg:mt-12">
         Pick - Up
       </p>
+      <div className="grid grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-4 lg:gap-y-6">
+        <FormField
+          control={form.control}
+          name="pickUpDate"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Date</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select an option" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="m@example.com">m@example.com</SelectItem>
+                  <SelectItem value="m@google.com">m@google.com</SelectItem>
+                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="pickUpTime"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Time</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select an option" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="m@example.com">m@example.com</SelectItem>
+                  <SelectItem value="m@google.com">m@google.com</SelectItem>
+                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+      <p className="text-secondary font-semibold text-base leading-[20px] tracking-[-0.32px] mb-2 lg:mb-3 mt-10 lg:mt-12">
+        Drop - Off
+      </p>
+      <div className="grid grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-4 lg:gap-y-6">
+        <FormField
+          control={form.control}
+          name="pickUpDate"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Date</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select an option" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="m@example.com">m@example.com</SelectItem>
+                  <SelectItem value="m@google.com">m@google.com</SelectItem>
+                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="pickUpTime"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Time</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select an option" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="m@example.com">m@example.com</SelectItem>
+                  <SelectItem value="m@google.com">m@google.com</SelectItem>
+                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
     </div>
   );
 };
