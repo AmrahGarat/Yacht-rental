@@ -65,7 +65,7 @@ export const Steps = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col lg:gap-y-8 gap-y-6"
+        className="flex flex-col lg:gap-y-8 gap-y-6 lg:order-none order-1"
       >
         <BillingStep form={form} />
         <RentalStep form={form} />
@@ -93,7 +93,7 @@ const BillingStep = ({ form }: { form: FormType }) => {
           Step 1 of 3
         </p>
       </div>
-      <div className="grid grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-4 lg:gap-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-4 lg:gap-y-6">
         <FormField
           control={form.control}
           name="name"
@@ -195,7 +195,7 @@ const RentalStep = ({ form }: { form: FormType }) => {
       <p className="text-secondary font-semibold text-base leading-[20px] tracking-[-0.32px] mb-2 lg:mb-3 mt-10 lg:mt-12">
         Pick - Up
       </p>
-      <div className="grid grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-4 lg:gap-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-4 lg:gap-y-6">
         <FormField
           control={form.control}
           name="pickUpDate"
@@ -244,7 +244,7 @@ const RentalStep = ({ form }: { form: FormType }) => {
       <p className="text-secondary font-semibold text-base leading-[20px] tracking-[-0.32px] mb-2 lg:mb-3 mt-10 lg:mt-12">
         Drop - Off
       </p>
-      <div className="grid grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-4 lg:gap-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-4 lg:gap-y-6">
         <FormField
           control={form.control}
           name="pickUpDate"
@@ -303,7 +303,8 @@ const ConfirmationStep = ({ form }: { form: FormType }) => {
             Confirmation
           </h2>
           <p className="text-gray-600 text-sm font-medium leading-[150%] tracking-[-0.28px] mt-1 lg:mb-8 mb-6">
-            We are getting to thr end. Just few clicks and your rental is ready!
+            We are getting to the end. <br /> Just few clicks and your rental is
+            ready!
           </p>
         </div>
         <p className="text-gray-600 text-sm font-medium leading-[150%] tracking-[-0.28px] mt-1 lg:mb-8 mb-6">
