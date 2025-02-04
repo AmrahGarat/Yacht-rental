@@ -18,6 +18,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -31,6 +33,8 @@ const FormSchema = z.object({
   dropOffDate: z.string(),
   pickUpTime: z.string(),
   dropOffTime: z.string(),
+  newsLetter: z.boolean(),
+  termsConditions: z.boolean(),
 });
 
 type FormType = UseFormReturn<z.infer<typeof FormSchema>>;
@@ -48,6 +52,8 @@ export const Steps = () => {
       dropOffDate: "",
       pickUpTime: "",
       dropOffTime: "",
+      newsLetter: false,
+      termsConditions: false,
     },
   });
 
@@ -63,6 +69,7 @@ export const Steps = () => {
       >
         <BillingStep form={form} />
         <RentalStep form={form} />
+        <ConfirmationStep form={form} />
       </form>
     </Form>
   );
@@ -283,6 +290,67 @@ const RentalStep = ({ form }: { form: FormType }) => {
           )}
         />
       </div>
+    </div>
+  );
+};
+
+const ConfirmationStep = ({ form }: { form: FormType }) => {
+  return (
+    <div className="rounded-[10px] bg-white w-ful lg:p-6 p-4">
+      <div className="flex justify-between items-end">
+        <div>
+          <h2 className="text-lg lg:text-xl font-bold leading-[150%] tracking-[-0.6px] text-secondary">
+            Confirmation
+          </h2>
+          <p className="text-gray-600 text-sm font-medium leading-[150%] tracking-[-0.28px] mt-1 lg:mb-8 mb-6">
+            We are getting to thr end. Just few clicks and your rental is ready!
+          </p>
+        </div>
+        <p className="text-gray-600 text-sm font-medium leading-[150%] tracking-[-0.28px] mt-1 lg:mb-8 mb-6">
+          Step 3 of 3
+        </p>
+      </div>
+      <FormField
+        control={form.control}
+        name="newsLetter"
+        render={({ field }) => (
+          <FormItem className="flex flex-row items-start space-x-5 space-y-0 rounded-[10px] bg-gray-100 p-4 lg:px-8">
+            <FormControl>
+              <Checkbox
+                checked={field.value}
+                onCheckedChange={field.onChange}
+              />
+            </FormControl>
+            <div className="space-y-1 leading-none">
+              <FormLabel className="cursor-pointer">
+                I agree to to receive newsletter with the latest news and
+                promotions.
+              </FormLabel>
+            </div>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="termsConditions"
+        render={({ field }) => (
+          <FormItem className="flex flex-row items-start space-x-5 space-y-0 rounded-[10px] bg-gray-100 p-4 lg:px-8 mt-2 lg:mt-4">
+            <FormControl>
+              <Checkbox
+                checked={field.value}
+                onCheckedChange={field.onChange}
+              />
+            </FormControl>
+            <div className="space-y-1 leading-none">
+              <FormLabel className="cursor-pointer">
+                By clicking here, I state that I have read and understood the
+                terms and conditions.
+              </FormLabel>
+            </div>
+          </FormItem>
+        )}
+      />
+      <Button className="mt-6 lg:mt-8">Rent Now</Button>
     </div>
   );
 };
