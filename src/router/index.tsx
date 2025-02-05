@@ -1,10 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import { paths } from "@/constants/paths";
-import HomePage from "@/pages/home";
+import HomePage from "@/pages/(business)/home";
 import RootLayout from "@/components/shared/RootLayout";
-import { RentListPage } from "@/pages/list";
-import RentDetailPage from "@/pages/detail";
-import PaymentPage from "@/pages/payment";
+import { RentListPage } from "@/pages/(business)/list";
+import RentDetailPage from "@/pages/(business)/detail";
+import PaymentPage from "@/pages/(business)/payment";
+import DashboardMainPage from "@/pages/(dashboard)/main";
+import DashboardRentPage from "@/pages/(dashboard)/rents";
+import DashboardLayout from "@/components/shared/DashboardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +29,20 @@ export const router = createBrowserRouter([
       {
         path: paths.PAYMENT,
         element: <PaymentPage />,
+      },
+      {
+        path: "",
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: paths.DASHBOARD.MAIN,
+            element: <DashboardMainPage />,
+          },
+          {
+            path: paths.DASHBOARD.RENTS,
+            element: <DashboardRentPage />,
+          },
+        ],
       },
     ],
   },
