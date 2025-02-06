@@ -1,21 +1,44 @@
-import AboutUs from "./components/AboutUs"
-import { FeaturedYachts } from "./components/FeaturedYachts"
-import Hero from "./components/Hero"
-import { Events } from "./components/Events"
-import { VideoAdd } from "./components/VideoAdd"
-import { Gallery } from "./components/Gallery"
+import React, { useState, useEffect } from "react";
+import bgImage from "@/assets/images/pxfuel.jpg";
+import Hero from "./components/Hero";
+import AboutUs from "./components/AboutUs";
+import { VideoAdd } from "./components/VideoAdd";
+import { FeaturedYachts } from "./components/FeaturedYachts";
+import { Events } from "./components/Events";
+import { Gallery } from "./components/Gallery";
 
 const HomePage = () => {
-  return (
-    <div className="pb-8 lg:pb-16">
-      <Hero/>
-      <AboutUs/>
-      <VideoAdd/>
-      <FeaturedYachts/>
-      <Events/>
-      <Gallery/>
-    </div>
-  )
-}
+  const [scrollY, setScrollY] = useState(0);
+  const handleScroll = () => {
+    setScrollY(window.scrollY);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
 
-export default HomePage
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const backgroundPosition = `center ${scrollY * 0.4}px`;
+
+  return (
+    <div className="relative pb-8 lg:pb-16">
+      <div
+        className="absolute top-0 left-0 w-full h-full bg-cover bg-center z-[-1] opacity-40"
+        style={{
+          backgroundImage: `url(${bgImage})`,
+          backgroundPosition: backgroundPosition,
+        }}
+      />
+      <Hero />
+      <AboutUs />
+      <VideoAdd />
+      <FeaturedYachts />
+      <Events />
+      <Gallery />
+    </div>
+  );
+};
+
+export default HomePage;

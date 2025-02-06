@@ -14,14 +14,14 @@ export const Hero = () => {
         className="absolute top-0 left-0 w-full h-full object-cover z-0"
       />
       <div className="flex items-center justify-center z-10">
-        <div className="absolute left-[50px] lg:left-[150px] top-[50px] right-[50px] lg:right-[0px] lg:top-[150px] max-w-[1000px] xl:max-w-[520px]">
-          <h3 className="text-[15px] lg:text-[20px] leading-[110%] tracking-[1.2px] mb-3 lg:mb-6 font-[Unna-BoldItalic]">
+        <div className="absolute left-[50px] lg:left-[150px] top-[50px] right-[50px] lg:right-[150px] xl:top-[150px] max-w-[1000px] xl:max-w-[520px]">
+          <h3 className="text-[15px] md:text-[20px] leading-[110%] tracking-[1.2px] mb-3 lg:mb-6 font-[Unna-BoldItalic]">
             YACHT CLUB & BOAT RENTAL
           </h3>
-          <h1 className="text-[60px] lg:text-[85px] leading-[115%] mb-3 lg:mb-6 font-[Unna-BoldItalic]">
+          <h1 className="text-[60px] md:text-[85px] leading-[115%] mb-3 lg:mb-6 font-[Unna-BoldItalic]">
             Discover the Freedom of the Open Sea
           </h1>
-          <p className="text-[15px] lg:text-[20px] leading-[160%] mb-3 lg:mb-6">
+          <p className="text-[15px] md:text-[20px] leading-[160%] mb-3 lg:mb-6">
             Experience the ultimate in luxury and relaxation as you cruise the
             open waters. Whether you're looking for a serene getaway or an
             adventurous day on the sea, our yachts offer unparalleled comfort

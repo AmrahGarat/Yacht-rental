@@ -1,18 +1,6 @@
 export const VideoAdd = () => {
   return (
-    <div>
-      <h1 className="container text-4xl text-secondary font-[Unna-Italic]">
-        Subscribe to our
-        <a
-          href="https://www.youtube.com/@RivayachtOfficial"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="text-red-600 font-[Unna-Bold]"> YouTube </span>
-        </a>
-        channel
-      </h1>
-
+    <div className="relative w-full">
       <div className="relative pb-[56.25%] w-full">
         <iframe
           className="absolute top-0 left-0 w-full h-full"
@@ -22,6 +10,18 @@ export const VideoAdd = () => {
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
         ></iframe>
+
+        <div className="absolute top-[5%] left-1/2 transform -translate-x-1/2 text-center text:xl lg:text-4xl text-secondary font-[Unna-Italic] z-10">
+          Subscribe to our
+          <a
+            href="https://www.youtube.com/@RivayachtOfficial"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="text-red-600 font-[Unna-Bold]"> YouTube </span>
+          </a>
+          channel
+        </div>
       </div>
     </div>
   );
