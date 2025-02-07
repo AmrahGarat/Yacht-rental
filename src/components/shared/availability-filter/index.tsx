@@ -27,9 +27,7 @@ export const AvailabilityFilter = ({
         {/* City Section */}
         <div
           className={`flex flex-col gap-2 ${
-            pageType === "rentList"
-              ? "w-[31%] min-h-[140px] gap-1 text-white"
-              : ""
+            pageType === "rentList" ? "w-[31%] gap-1 text-white" : ""
           }`}
         >
           <p className="text-lg font-semibold text-[22px] text-white">
@@ -50,7 +48,7 @@ export const AvailabilityFilter = ({
         {/* Pick-up Section */}
         <div
           className={`flex flex-col gap-2 pt-10 ${
-            pageType === "rentList" ? "w-[31%] min-h-[140px] gap-1 !pt-0" : ""
+            pageType === "rentList" ? "w-[31%] gap-1 !pt-0" : ""
           }`}
         >
           <p className="text-lg font-semibold text-[22px] text-white">
@@ -85,9 +83,7 @@ export const AvailabilityFilter = ({
         {/* Drop-off Section */}
         <div
           className={`flex flex-col gap-2 pt-10 ${
-            pageType === "rentList"
-              ? "w-[31%] min-h-[140px] gap-1 !pt-0 text-white"
-              : ""
+            pageType === "rentList" ? "w-[31%] gap-1 !pt-0 text-white" : ""
           }`}
         >
           <p className="text-lg font-semibold text-[22px] text-white">

@@ -2,7 +2,7 @@ import { FC } from "react";
 
 export const Footer: FC = () => {
   return (
-    <footer className="bg-secondary text-primary-foreground py-6 mt-12">
+    <footer className="bg-secondary text-primary-foreground py-6">
       <div className="container mx-auto px-4 flex flex-col lg:flex-row justify-between items-center">
         <div className="text-center lg:text-left">
           <p className="text-sm">

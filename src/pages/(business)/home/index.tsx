@@ -23,7 +23,7 @@ const HomePage = () => {
   const backgroundPosition = `center ${scrollY * 0.4}px`;
 
   return (
-    <div className="relative pb-8 lg:pb-16">
+    <div className="relative pb-8 lg:pb-16 bg-transparent">
       <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center z-[-1] opacity-40"
         style={{
