@@ -5,10 +5,9 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import passport from "passport";
 import cors from "cors";
-// import path from "path";
 // import { createServer } from "node:http";
 
-// import reservationRoutes from "./routes/reservation";
+import reservationRoutes from "./src/routes/reservation";
 import locationRoutes from "./src/routes/location";
 import categoryRoutes from "./src/routes/category";
 import authRoutes from "./src/routes/auth";
@@ -18,6 +17,7 @@ import rentRoutes from "./src/routes/rent";
 
 // import { connectSocket } from "./socket";
 import "./src/auth/local-strategy";
+import path from "path";
 
 dotenv.config();
 
@@ -48,7 +48,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use("/public", express.static(path.join(__dirname, "../public")));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 app.use("/auth", authRoutes);
 // app.use("/users", usersRoutes);
@@ -56,7 +56,7 @@ app.use("/auth", authRoutes);
 app.use("/category", categoryRoutes);
 app.use("/location", locationRoutes);
 app.use("/rent", rentRoutes);
-// app.use("/reservation", reservationRoutes);
+app.use("/reservation", reservationRoutes);
 // app.use("/review", reviewRoutes);
 // app.use("/conversation", conversationRoutes);
 

@@ -28,12 +28,15 @@ export const RentCard = () => {
         onClick={navigateToDetail}
       />
       <div className="flex justify-between p-4">
-        <h4
-          onClick={navigateToDetail}
-          className="text-secondary font-[Unna-Italic] text-[24px] cursor-pointer hover:underline"
-        >
-          Flying Fox
-        </h4>
+        <div className="flex flex-col gap-1 text-md text-secondary">
+          <h4
+            onClick={navigateToDetail}
+            className="text-secondary font-[Unna-Italic] text-[24px] cursor-pointer hover:underline"
+          >
+            Flying Fox
+          </h4>
+          <p>Motor</p>
+        </div>
         <button onClick={() => setIsLiked(!isLiked)}>
           <img src={isLiked ? HeartFilledRedImg : HeartEmptyImg} alt="heart" />
         </button>

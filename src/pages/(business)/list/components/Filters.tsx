@@ -1,123 +1,180 @@
 import { Button } from "@/components/ui/button";
-import { useRef, useState } from "react"
+import { useMemo, useRef, useState } from "react";
 import FilterIcon from "@/assets/icons/filter.svg";
 import { cn } from "@/lib/utils";
 import { useOnClickOutside } from "usehooks-ts";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
+import { useQuery } from "@tanstack/react-query";
+import categoryService from "@/services/category";
+import { useSearchParams } from "react-router-dom";
 
-const filters =[
-  {
-    label: "Type",
-    options: [
-      {
-        value: "sport",
-        label: "Sport",
-        count: 5,
-      },
-      {
-        value: "suv",
-        label: "SUV",
-        count: 10,
-      },
-      {
-        value: "mpv",
-        label: "MPV",
-        count: 3,
-      },
-      {
-        value: "sedan",
-        label: "Sedan",
-        count: 7,
-      },
-      {
-        value: "coupe",
-        label: "Coupe",
-        count: 2,
-      },
-      {
-        value: "hatchback",
-        label: "Hatchback",
-        count: 4,
-      }
-    ]
-  },
-  {
-    label: "Capacity",
-    options: [
-      {
-        value: "2",
-        label: "2 Person",
-        count: 5
-      },
-      {
-        value: "4",
-        label: "4 Person",
-        count: 7
-      },
-      {
-        value: "6",
-        label: "6 Person",
-        count: 3
-      },
-      {
-        value: "8",
-        label: "8 Person",
-        count: 9
-      }
-    ]
-  }
-]
+type Filters = {
+  label: string;
+  options: {
+    value: string;
+    label: string;
+    count?: number;
+  }[];
+}[];
 
 export const Filters = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null);
+  const { data: categoryResponse } = useQuery({
+    queryKey: ["categories"],
+    queryFn: categoryService.getAll,
+  });
 
-  function toggle () {
+  const categoryOptions = useMemo(() => {
+    if (!categoryResponse) return [];
+    return categoryResponse.data.items.map((category) => ({
+      value: category._id,
+      label: category.name,
+      count: category.count,
+    }));
+  }, [categoryResponse]);
+
+  const filters: Filters = useMemo(
+    () => [
+      {
+        label: "Type",
+        options: categoryOptions,
+      },
+      {
+        label: "Capacity",
+        options: [
+          {
+            value: "2",
+            label: "2 Person",
+          },
+          {
+            value: "4",
+            label: "4 Person",
+          },
+          {
+            value: "6",
+            label: "6 Person",
+          },
+          {
+            value: "10",
+            label: "10 Person",
+          },
+          {
+            value: "12",
+            label: "12 Person",
+          },
+          {
+            value: "14",
+            label: "14 Person",
+          },
+          {
+            value: "16",
+            label: "16 Person",
+          },
+          {
+            value: "18",
+            label: "18 Person",
+          },
+          {
+            value: "20",
+            label: "20 Person",
+          },
+          {
+            value: "22",
+            label: "22 Person",
+          },
+        ],
+      },
+    ],
+    [categoryOptions]
+  );
+
+  function toggle() {
     setIsOpen(!isOpen);
   }
   function handleClose() {
     setIsOpen(false);
   }
-  
-  useOnClickOutside (ref, handleClose)
+
+  function handleChange(type: string, option: string) {
+    const params = searchParams.getAll(type.toLowerCase());
+
+    let newParams: string[] = [];
+    if (params.includes(String(option))) {
+      newParams = params.filter((param) => param !== String(option));
+    } else {
+      newParams = [...params, String(option)];
+    }
+
+    searchParams.delete(type.toLowerCase());
+    newParams.forEach((param) => {
+      searchParams.append(type.toLowerCase(), param);
+    });
+
+    setSearchParams(searchParams);
+  }
+
+  useOnClickOutside(ref, handleClose);
 
   return (
     <>
-      <div ref={ref} className={cn("p-8 bg-white w-[360px] h-[calc(100vh-80px)] md:h-[calc(100vh-142px)] overflow-auto fixed top-[80px] md:top-[142px] z-20 duration-200 pb-20", isOpen ? "left-0" : "-left-[360px] xl:left-0")}>
+      <div
+        ref={ref}
+        className={cn(
+          "p-8 bg-white w-[360px] h-[calc(100vh-80px)] md:h-[calc(100vh-142px)] overflow-auto fixed top-[80px] md:top-[142px] z-20 duration-200 pb-20",
+          isOpen ? "left-0" : "-left-[360px] xl:left-0"
+        )}
+      >
         <div className="flex flex-col gap-y-8 lg:gap-y-14">
-          {
-            filters.map((filter) => (
-              <div key={filter.label}>
-                <h4 className="text-[20px] font-semibold tracking-[-0.24px] text-secondary mb-7 uppercase font-[Unna-BoldItalic]">{filter.label}</h4>
-                <div className="flex flex-col gap-y-4 lg:gap-y-8">
-                  {
-                    filter.options.map((option) => (
-                      <div key={option.value} className="flex gap-x-2 items-center">
-                        <Checkbox id={`${filter.label}-${option.value}`} className="h-5 w-5"/>
-                        <label htmlFor={`${filter.label}-${option.value}`} className="text-secondary text-lg lg:text-xl font-semibold leading-[150%] tracking-[-0.4px] cursor-pointer">
-                          {option.label} <span className="text-secondary">({option.count})</span>
-                        </label>
-                      </div>
-                    ))
-                  }
-                  
-                </div>
+          {filters.map((filter) => (
+            <div key={filter.label}>
+              <h4 className="text-[20px] font-semibold tracking-[-0.24px] text-secondary mb-7 uppercase font-[Unna-BoldItalic]">
+                {filter.label}
+              </h4>
+              <div className="flex flex-col gap-y-4 lg:gap-y-8">
+                {filter.options.map((option) => (
+                  <div key={option.value} className="flex gap-x-2 items-center">
+                    <Checkbox
+                      id={`${filter.label}-${option.value}`}
+                      onClick={() => handleChange(filter.label, option.value)}
+                      className="h-5 w-5"
+                    />
+                    <label
+                      htmlFor={`${filter.label}-${option.value}`}
+                      className="text-secondary text-lg lg:text-xl font-semibold leading-[150%] tracking-[-0.4px] cursor-pointer"
+                    >
+                      {option.label}{" "}
+                      {option.count && (
+                        <span className="text-secondary">({option.count})</span>
+                      )}
+                    </label>
+                  </div>
+                ))}
               </div>
-            ))
-          }
+            </div>
+          ))}
           <div>
-            <h4 className="text-[20px] font-semibold tracking-[-0.24px] text-secondary mb-7 uppercase font-[Unna-BoldItalic]">Price</h4>
+            <h4 className="text-[20px] font-semibold tracking-[-0.24px] text-secondary mb-7 uppercase font-[Unna-BoldItalic]">
+              Price
+            </h4>
             <div>
-              <Slider/>
-              <p className="text-secondary text-lg lg:text-xl font-semibold tracking-[-0.4px] leading-[150%] mt-4">Max. $3,000,000</p>
+              <Slider />
+              <p className="text-secondary text-lg lg:text-xl font-semibold tracking-[-0.4px] leading-[150%] mt-4">
+                Max. $3,000,000
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <Button variant={"outline"} onClick={toggle} className="xl:hidden w-fit ml-6 lg:ml-8 mt-4 -mb-4">
+      <Button
+        variant={"outline"}
+        onClick={toggle}
+        className="xl:hidden w-fit ml-6 lg:ml-8 mt-4 -mb-4"
+      >
         <img className="w-6 lg:w-8" src={FilterIcon} alt="Filter" />
       </Button>
     </>
-  )
-}
+  );
+};

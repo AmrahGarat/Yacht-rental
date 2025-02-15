@@ -1,13 +1,14 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { ModalTypeEnum, useDialog } from "@/hooks/useDialog";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { AxiosError } from "axios";
+import { z } from "zod";
+
+import { ModalTypeEnum, useDialog } from "@/hooks/useDialog";
+import { AuthResponseType } from "@/services/auth/types";
+import authService from "@/services/auth";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -16,10 +17,17 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
-import { z } from "zod";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { toast } from "sonner";
+import { getCurrentUserAsync } from "@/store/features/userSlice";
+import { useAppDispatch } from "@/hooks/redux";
 
 const formSchema = z.object({
   email: z.string().min(2).max(50),
@@ -36,12 +44,29 @@ export const LoginDialog = () => {
     },
   });
 
+  const dispatch = useAppDispatch();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: authService.login,
+    onSuccess: (response) => {
+      toast.success(response.data.message);
+      closeDialog();
+      dispatch(getCurrentUserAsync());
+    },
+    onError: (error: AxiosError<AuthResponseType>) => {
+      const message =
+        error.response?.data.message ??
+        "Something went wrong! Please try again";
+      toast.error(message);
+    },
+  });
+
   if (isOpen && type !== ModalTypeEnum.LOGIN) {
     return null;
   }
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    mutate(values);
   }
 
   return (
@@ -81,13 +106,17 @@ export const LoginDialog = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="************" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="************"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" disabled={isPending}>
               Sign In
             </Button>
           </form>
