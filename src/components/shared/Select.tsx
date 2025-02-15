@@ -1,67 +1,81 @@
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
+import { useMemo, useRef, useState } from "react";
+import { useOnClickOutside } from "usehooks-ts";
+import ArrowDownImg from "@/assets/icons/menu.svg";
+import { RenderIf } from "./RenderIf";
 
-type Props ={
-    label: string;
-    placeholder: string;
-    options: {label: string; value: string}[];
-    className?: string;
-}
+type Props = {
+  label: string;
+  placeholder: string;
+  options: { label: string; value: string }[];
+  value: string | null;
+  onChange: (value: string) => void;
+};
 
-export const CustomSelect = ({label,options,placeholder,className}:Props) => {
+export const CustomSelect = ({
+  label,
+  options,
+  placeholder,
+  value,
+  onChange,
+}: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef(null);
+
+  // Find the label of the selected option
+  const selectedOptionLabel = useMemo(
+    () => options.find((option) => option.value === value)?.label,
+    [options, value]
+  );
+
+  function toggle() {
+    setIsOpen(!isOpen);
+  }
+
+  function close() {
+    setIsOpen(false);
+  }
+
+  useOnClickOutside(ref, close);
+
   return (
-    <div className={`custom-select-container ${className}`}>
-    <p className="text-[17px]">
+    <div>
+      {/* Dropdown Label */}
+      <h5 className="text-secondary-500 text-base font-bold leading-[20px] tracking-[-0.32px] mb-2">
         {label}
-    </p>
-      <Select>
-        <SelectTrigger className="w-full">
-        <SelectValue placeholder={placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        {
-            options.map((options) => (
-                <SelectItem key={options.value} value={options.value}>
-                    {options.label}
-                </SelectItem>
-            ))}
-      </SelectContent>
-      </Select>
-    </div>
-  )
-}
+      </h5>
 
-        // <SelectGroup>
-        //   <SelectLabel>North America</SelectLabel>
-        //   <SelectItem value="USA">USA</SelectItem>
-        //   <SelectItem value="Kanada">Kanada</SelectItem>
-        //   <SelectItem value="Mexico">Mexico</SelectItem>
-        // </SelectGroup>
-        // <SelectGroup>
-        //   <SelectLabel>Europe</SelectLabel>
-        //   <SelectItem value="UK">UK</SelectItem>
-        //   <SelectItem value="Germany">Germany</SelectItem>
-        //   <SelectItem value="France">France</SelectItem>
-        //   <SelectItem value="Monaco">Monaco</SelectItem>
-        //   <SelectItem value="Italy">Italy</SelectItem>
-        //   <SelectItem value="Spain">Spain</SelectItem>
-        // </SelectGroup>
-        // <SelectGroup>
-        //   <SelectLabel>Asia</SelectLabel>
-        //   <SelectItem value="Azerbaijan">Azerbaijan</SelectItem>
-        //   <SelectItem value="Georgia">Georgia</SelectItem>
-        //   <SelectItem value="Turkey">Turkey</SelectItem>
-        //   <SelectItem value="UAE">UAE</SelectItem>
-        //   <SelectItem value="South Korea">South Korea</SelectItem>
-        //   <SelectItem value="China">China</SelectItem>
-        // </SelectGroup>
-        // <SelectGroup>
-        //   <SelectLabel>Australia & Pacific</SelectLabel>
-        //   <SelectItem value="Australia">Australian</SelectItem>
-        //   <SelectItem value="New Zealand">New Zealand</SelectItem>
-        // </SelectGroup>
-        // <SelectGroup>
-        //   <SelectLabel>South America</SelectLabel>
-        //   <SelectItem value="Argentina">Argentina</SelectItem>
-        //   <SelectItem value="Brazilia">Brasilia</SelectItem>
-        //   <SelectItem value="Chile">Chile</SelectItem>
-        // </SelectGroup>
+      <div ref={ref} className="relative">
+        {/* Dropdown Trigger */}
+        <div
+          onClick={toggle}
+          className="flex justify-between cursor-pointer border border-gray-300 px-3 py-2 rounded-md bg-white text-secondary"
+        >
+          <p className="text-md text-secondary-300 font-medium tracking-[-0.24px]">
+            {selectedOptionLabel || placeholder}
+          </p>
+          <img src={ArrowDownImg} className="w-[15px]" alt="Arrow Down" />
+        </div>
+
+        {/* Dropdown Content */}
+        <RenderIf condition={isOpen}>
+          <div className="absolute top-10 w-full bg-white mt-1 border border-secondary/50 z-20 shadow-md rounded-md text-secondary">
+            <ul>
+              {options.map((option) => (
+                <li
+                  key={option.value}
+                  onClick={() => {
+                    onChange(option.value);
+                    close();
+                  }}
+                  className="p-2 hover:bg-information/60 cursor-pointer"
+                >
+                  {option.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </RenderIf>
+      </div>
+    </div>
+  );
+};

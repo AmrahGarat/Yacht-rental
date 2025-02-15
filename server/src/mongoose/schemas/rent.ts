@@ -10,11 +10,16 @@ const rentSchema = new Schema({
     type: String,
     default: "",
   },
+  category: {
+    type: Types.ObjectId,
+    ref: "Category",
+    required: true,
+  },
   showInFeatured: {
     type: Boolean,
     default: false,
   },
-  Location: {
+  location: {
     type: Types.ObjectId,
     ref: "Location",
     required: true,
@@ -51,11 +56,11 @@ const rentSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  reviews: {
-    type: [Types.ObjectId],
-    ref: "Review",
-    default: [],
-  },
+  // reviews: {
+  //   type: [Types.ObjectId],
+  //   ref: "Review",
+  //   default: [],
+  // },
 });
 
 rentSchema.set("toJSON", {

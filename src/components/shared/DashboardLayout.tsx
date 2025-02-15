@@ -1,8 +1,23 @@
 import { Outdent } from "lucide-react";
 import DashboardSidebar from "./DashboardSidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { useAppSelector } from "@/hooks/redux";
+import { selectUserData } from "@/store/features/userSlice";
+import { UserRole } from "@/types";
+import { Navigate } from "react-router-dom";
+import { paths } from "@/constants/paths";
 
 const DashboardLayout = () => {
+  const { user, loading } = useAppSelector(selectUserData);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user || user.role !== UserRole.Admin) {
+    return <Navigate to={paths.HOME} />;
+  }
+
   return (
     <SidebarProvider>
       <DashboardSidebar />

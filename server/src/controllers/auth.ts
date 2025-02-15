@@ -7,26 +7,26 @@ import { transporter } from "../utils/mail";
 import crypto from "crypto";
 
 const login = (req: Request, res: Response) => {
-    res.json({
-        message: "Login successful",
-        user: req.user,
-    })
-}
+  res.json({
+    message: "Login successful",
+    user: req.user,
+  });
+};
 
 const register = async (req: Request, res: Response) => {
-    try {
-        const user = req.body;
+  try {
+    const user = req.body;
     user.password = hashPassword(user.password);
 
     const userExist = await User.findOne({
-        email:user.email,
+      email: user.email,
     });
 
     if (userExist) {
-        res.status(400).json({
-            message: "User already exists with this email",
-        });
-        return;
+      res.status(400).json({
+        message: "User already exists with this email",
+      });
+      return;
     }
 
     const newUser = new User(user);
@@ -36,51 +36,46 @@ const register = async (req: Request, res: Response) => {
     delete userObj.password;
 
     res.json({
-        message: "Register successful",
-        user: userObj,
-    })
-    } catch (error) {
-        console.log("register error", error);
-        
-    }
-
-
-    
+      message: "Register successful",
+      user: userObj,
+    });
+  } catch (error) {
+    console.log("register error", error);
+  }
 };
 
 const logout = (req: Request, res: Response) => {
-    req.logout((err) => {
-        if (err) {
-            return res.status(500).json({
-                message: "Something went wrong",
-            });
-        }
+  req.logout((err) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Something went wrong",
+      });
+    }
 
-        res.json({
-            message: "Logout successful",
-        });
+    res.json({
+      message: "Logout successful",
     });
+  });
 };
 
 const currentUser = (req: Request, res: Response) => {
-    res.json({
-        message: "Current user",
-        user: req.user,
-    });
+  res.json({
+    message: "Current user",
+    user: req.user,
+  });
 };
 
-const forgotPassword = async(req: Request, res: Response) => {
+const forgotPassword = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
 
-    try {
-        const {email} = req.body;
-
-    const user = await User.findOne({email});
+    const user = await User.findOne({ email });
 
     if (!user) {
-        res.status(400). json({
-            message: "User not found with this email",
-        });
-        return;
+      res.status(400).json({
+        message: "User not found with this email",
+      });
+      return;
     }
     const token = crypto.randomBytes(32).toString("hex");
 
@@ -88,7 +83,7 @@ const forgotPassword = async(req: Request, res: Response) => {
     user.resetPasswordTokenExpires = new Date(Date.now() + 3600000);
     await user.save();
     transporter.sendMail({
-        from: '"Authentication 👻" <dadasovsuleyman126@gmail.com>', // sender address
+      from: '"Authentication 👻" <dadasovsuleyman126@gmail.com>', // sender address
       to: email, // list of receivers
       subject: "Reset Your Password", // Subject line
       html: `
@@ -100,16 +95,15 @@ const forgotPassword = async(req: Request, res: Response) => {
       `,
     });
     res.json({
-        message: "Email sent",
-    })
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message: "Something went wrong",
-        })
-    }
-    
-}
+      message: "Email sent",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
+};
 
 const resetPassword = async (req: Request, res: Response) => {
   const { token, password } = req.body;
