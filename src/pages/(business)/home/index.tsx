@@ -6,6 +6,7 @@ import { VideoAdd } from "./components/VideoAdd";
 import { FeaturedYachts } from "./components/FeaturedYachts";
 import { Events } from "./components/Events";
 import { Gallery } from "./components/Gallery";
+import { ScrollToTop } from "@/components/shared/ScrollToTop";
 
 const HomePage = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -31,6 +32,7 @@ const HomePage = () => {
           backgroundPosition: backgroundPosition,
         }}
       />
+      <ScrollToTop />
       <Hero />
       <AboutUs />
       <VideoAdd />

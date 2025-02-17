@@ -6,11 +6,6 @@ import {
   editRentSchema,
   getAllRentSchema,
 } from "../validation/rent";
-// import {
-//   createRentSchema,
-//   editRentSchema,
-//   getAllRentSchema,
-// } from "../validation/rent";
 import { authorize } from "../middlewares/user";
 import upload from "../middlewares/multer";
 
@@ -18,7 +13,7 @@ const router = Router();
 
 router.get("/", validateSchema(getAllRentSchema), rentController.getAll);
 
-// router.get("/:id", rentController.getById);
+router.get("/:id", rentController.getById);
 
 router.post(
   "/",

@@ -4,10 +4,11 @@ import FilterIcon from "@/assets/icons/filter.svg";
 import { cn } from "@/lib/utils";
 import { useOnClickOutside } from "usehooks-ts";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Slider } from "@/components/ui/slider";
+// import { Slider } from "@/components/ui/slider";
 import { useQuery } from "@tanstack/react-query";
 import categoryService from "@/services/category";
 import { useSearchParams } from "react-router-dom";
+import MultiRangeSlider from "@/components/shared/multi-shared-slider";
 
 type Filters = {
   label: string;
@@ -116,6 +117,20 @@ export const Filters = () => {
     setSearchParams(searchParams);
   }
 
+  function handleRangeChange(min: number, max: number) {
+    if (min === 0) {
+      searchParams.delete("min_price");
+    } else {
+      searchParams.set("min_price", String(min));
+    }
+    if (max === 1000) {
+      searchParams.delete("max_price");
+    } else {
+      searchParams.set("max_price", String(max));
+    }
+    setSearchParams(searchParams);
+  }
+
   useOnClickOutside(ref, handleClose);
 
   return (
@@ -159,12 +174,11 @@ export const Filters = () => {
             <h4 className="text-[20px] font-semibold tracking-[-0.24px] text-secondary mb-7 uppercase font-[Unna-BoldItalic]">
               Price
             </h4>
-            <div>
-              <Slider />
-              <p className="text-secondary text-lg lg:text-xl font-semibold tracking-[-0.4px] leading-[150%] mt-4">
-                Max. $3,000,000
-              </p>
-            </div>
+            <MultiRangeSlider
+              min={100000}
+              max={3000000}
+              onChange={handleRangeChange}
+            />
           </div>
         </div>
       </div>

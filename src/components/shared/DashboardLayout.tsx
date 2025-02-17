@@ -1,10 +1,9 @@
-import { Outdent } from "lucide-react";
 import DashboardSidebar from "./DashboardSidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useAppSelector } from "@/hooks/redux";
 import { selectUserData } from "@/store/features/userSlice";
 import { UserRole } from "@/types";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { paths } from "@/constants/paths";
 
 const DashboardLayout = () => {
@@ -24,7 +23,7 @@ const DashboardLayout = () => {
       <main className="w-full px-6">
         <SidebarTrigger className="my-4" />
         <div className="p-6 rounded-[10px] bg-white w-full">
-          <Outdent />
+          <Outlet />
         </div>
       </main>
     </SidebarProvider>
