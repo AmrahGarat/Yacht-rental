@@ -40,7 +40,7 @@ export const CustomSelect = ({
   return (
     <div>
       {/* Dropdown Label */}
-      <h5 className="text-secondary-500 text-base font-bold leading-[20px] tracking-[-0.32px] mb-2">
+      <h5 className="text-secondary-500 text-base font-bold leading-[20px] tracking-[-0.32px]">
         {label}
       </h5>
 

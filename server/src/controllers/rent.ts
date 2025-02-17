@@ -68,12 +68,53 @@ const getAll = async (req: Request, res: Response) => {
       .limit(take)
       .populate(["category", "location"]);
 
+    items.forEach((item) => {
+      item.images = item.images.map(
+        (image) => `${process.env.BASE_URL}/public/rent/${image}`
+      );
+    });
     res.json({
       message: "success",
       items,
     });
   } catch (error) {
     console.log(error);
+    res.status(500).send({
+      message: "Internal Server Error",
+    });
+  }
+};
+
+const getById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const rent = await Rent.findById(id).populate(["category", "location"]);
+
+    if (!rent) {
+      res.status(404).json({
+        message: "Not Found",
+      });
+      return;
+    }
+
+    // const reviews = await Review.find({
+    //   rent: id,
+    //   status: "approved",
+    // }).populate("author", "name surname");
+
+    rent.images = rent.images.map(
+      (image) => `${process.env.BASE_URL}/public/rent/${image}`
+    );
+
+    res.json({
+      message: "success",
+      item: rent,
+      // ...rent.toObject(),
+      // reviews,
+    });
+  } catch (err) {
+    console.log(err);
     res.status(500).send({
       message: "Internal Server Error",
     });
@@ -176,7 +217,19 @@ const edit = async (req: Request, res: Response) => {
     category.rents.push(rent._id);
     await category.save();
 
-    rent.updateOne(data);
+    rent.name = data.name;
+    rent.description = data.description;
+    rent.category = data.categoryId;
+    rent.location = data.location;
+    rent.size = data.size;
+    rent.capacity = data.capacity;
+    rent.cabins = data.cabins;
+    rent.crew = data.crew;
+    rent.price = data.price;
+    if (data.images) rent.images = data.images;
+    if (data.showInFeatured !== undefined)
+      rent.showInFeatured = data.showInFeatured;
+
     await rent.save();
 
     res.json({
@@ -218,6 +271,7 @@ const remove = async (req: Request, res: Response) => {
 
 export default {
   getAll,
+  getById,
   create,
   edit,
   remove,
