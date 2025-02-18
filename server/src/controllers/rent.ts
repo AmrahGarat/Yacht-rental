@@ -6,7 +6,7 @@ const getAll = async (req: Request, res: Response) => {
   try {
     const {
       type,
-      take = 2,
+      take = 3,
       skip = 0,
       search,
       category,
@@ -27,10 +27,17 @@ const getAll = async (req: Request, res: Response) => {
     if (type === "featured") {
       filter.showInFeatured = true;
     }
+    let categoryIds: string[] = [];
     if (search) {
-      filter.OR(
+      const matchingCategories = await Category.find({
+        name: { $regex: new RegExp(search, "i") },
+      }).select("_id");
+
+      categoryIds = matchingCategories.map((cat) => cat._id.toString());
+
+      filter.$or.push(
         { name: { $regex: new RegExp(search, "i") } },
-        { description: { $regex: new RegExp(search, "i") } }
+        { category: { $in: categoryIds } }
       );
     }
     if (size) {
@@ -64,9 +71,11 @@ const getAll = async (req: Request, res: Response) => {
     }
 
     const items = await Rent.find(filter)
-      .skip(skip)
-      .limit(take)
+      .skip(+skip)
+      .limit(+take)
       .populate(["category", "location"]);
+
+    const total = await Rent.countDocuments(filter);
 
     items.forEach((item) => {
       item.images = item.images.map(
@@ -76,6 +85,9 @@ const getAll = async (req: Request, res: Response) => {
     res.json({
       message: "success",
       items,
+      total,
+      take: +take,
+      skip: +take,
     });
   } catch (error) {
     console.log(error);
@@ -134,6 +146,7 @@ const create = async (req: Request, res: Response) => {
       crew,
       price,
       currency,
+      showInFeatured = false,
     } = req.matchedData;
 
     const category = await Category.findById(categoryId);
@@ -158,6 +171,7 @@ const create = async (req: Request, res: Response) => {
       price,
       currency,
       images,
+      showInFeatured,
     });
     await rent.save();
 

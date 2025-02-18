@@ -16,7 +16,7 @@ const RootLayout = () => {
       <Navbar />
       <Outlet />
       <Dialogs />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

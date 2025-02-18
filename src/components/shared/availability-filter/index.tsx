@@ -71,16 +71,17 @@ const Card = ({
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const selectedValue = searchParams.get(`${type}`);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(
     searchParams.get(`${type}_date`)
       ? new Date(searchParams.get(`${type}_date`)!)
       : undefined
   );
 
-  const selectedValue = searchParams.get(`${type}_location`);
+  // const selectedValue = searchParams.get(`${type}_location`);
 
   function handleChange(value: string) {
-    searchParams.set(`${type}_location`, value);
+    searchParams.set(`${type}`, value);
     setSearchParams(searchParams);
     if (location.pathname === "/") {
       navigate(paths.LIST + "?" + searchParams.toString());

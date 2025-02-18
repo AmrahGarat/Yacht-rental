@@ -6,7 +6,7 @@ export const QUERY_KEYS = {
   CATEGORIES: "categories",
   LOCATIONS: "locations",
   RESERVATIONS: "reservations",
-  RECOMMENDATION_RENTS: "recommendationRents",
+  FEATURED_RENTS: "featuredRents",
   RENT_LIST: "rentList",
   RENT_DETAIL: "rentDetail",
   USER_CONVERSATION: "userConversation",
