@@ -10,11 +10,30 @@ import GuestsSizeImg from "@/assets/icons/guests-size.svg";
 import BedroomNumberImg from "@/assets/icons/bedroom-number.svg";
 import CrewSizeImg from "@/assets/icons/crew-size.svg";
 import YachtSizeImg from "@/assets/icons/yacht-size.svg";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Rent } from "@/types";
 
-export const RentCard = () => {
+type Props = {
+  rent: Rent;
+};
+
+export const RentCard = ({ rent }: Props) => {
   const [isLiked, setIsLiked] = useState(false);
-  const id = "asdc-12d1w-12d1w-12d1w-12d1w";
   const navigate = useNavigate();
+  const id = "asdc-12d1w-12d1w-12d1w-12d1w";
+  const {
+    name,
+    category,
+    description,
+    images,
+    size,
+    capacity,
+    cabins,
+    crew,
+    price,
+  } = rent;
+  const mainImage = images[0];
+
   function navigateToDetail() {
     navigate(paths.DETAIL(id));
   }
@@ -22,7 +41,7 @@ export const RentCard = () => {
   return (
     <div className="w-full bg-white rounded-[20px]">
       <img
-        src={YachtFlyingFoxImg}
+        src={mainImage}
         alt="yacht flying fox"
         className="pb-2 rounded-[20px] cursor-pointer"
         onClick={navigateToDetail}
@@ -33,9 +52,9 @@ export const RentCard = () => {
             onClick={navigateToDetail}
             className="text-secondary font-[Unna-Italic] text-[24px] cursor-pointer hover:underline"
           >
-            Flying Fox
+            {name}
           </h4>
-          <p>Motor</p>
+          <p>{category.name}</p>
         </div>
         <button onClick={() => setIsLiked(!isLiked)}>
           <img src={isLiked ? HeartFilledRedImg : HeartEmptyImg} alt="heart" />
@@ -45,38 +64,72 @@ export const RentCard = () => {
         <div className="flex gap-1 items-center">
           <img src={YachtSizeImg} alt="yacht-size" className="w-3 md:w-5" />
           <p className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]">
-            446” ft
+            {size}” ft
           </p>
         </div>
         <div className="flex gap-1 items-center">
           <img src={GuestsSizeImg} alt="guests-size" className="w-5" />
           <p className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]">
-            22 Guests
+            {capacity} Guests
           </p>
         </div>
         <div className="flex gap-1 items-center">
           <img src={BedroomNumberImg} alt="bedroom-number" className="w-5" />
           <p className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]">
-            11 Cabins
+            {cabins} Cabins
           </p>
         </div>
         <div className="flex gap-1 items-center">
           <img src={CrewSizeImg} alt="crew-size" className="w-5" />
           <p className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]">
-            55 Crew
+            {crew} Crew
           </p>
         </div>
       </div>
-      <p className="text-[#9499A6] text-sm leading-[160%] p-4">
-        Built in 2019, Flying Fox is custom-built for world-class luxury yacht
-        chartering, offering a wealth of spacious living areas and fabulous
-        amenities, you'll be in for a treat from the moment you step on board.
-      </p>
+      <p className="text-[#9499A6] text-sm leading-[160%] p-4">{description}</p>
       <div className="flex justify-between items-center p-4">
         <p className="text-secondary text-xl">
-          $3,000,000 / <span className="text-sm">week</span>
+          ${price} / <span className="text-sm">week</span>
         </p>
         <Button>Book Now</Button>
+      </div>
+    </div>
+  );
+};
+
+RentCard.Skeleton = function () {
+  return (
+    <div className="w-full bg-white rounded-[20px] shadow-lg overflow-hidden">
+      {/* Image Skeleton */}
+      <Skeleton className="w-full h-[200px] md:h-[220px] rounded-[20px] bg-gradient-to-r from-blue-100 to-white" />
+
+      <div className="p-4 space-y-2">
+        {/* Title Skeleton */}
+        <Skeleton className="h-7 w-3/5 rounded-lg bg-blue-200" />
+        {/* Type Skeleton */}
+        <Skeleton className="h-4 w-1/4 rounded-lg bg-blue-100" />
+      </div>
+
+      <div className="flex justify-between items-center p-4">
+        {/* Yacht Features Skeletons */}
+        {[...Array(4)].map((_, index) => (
+          <div key={index} className="flex gap-2 items-center">
+            <Skeleton className="w-6 h-6 rounded-full bg-blue-300 shadow-sm" />
+            <Skeleton className="h-4 w-16 rounded bg-blue-100" />
+          </div>
+        ))}
+      </div>
+
+      {/* Description Skeleton */}
+      <div className="p-4">
+        <Skeleton className="h-16 w-full rounded-lg bg-gradient-to-r from-blue-100 to-white" />
+      </div>
+
+      <div className="flex justify-between items-center p-4">
+        {/* Price Skeleton */}
+        <Skeleton className="h-7 w-1/4 rounded-lg bg-blue-300" />
+        {/* Button Skeleton with Glow */}
+        <Skeleton className="h-10 w-24 rounded-lg bg-blue-400 shadow-md animate-pulse" />
       </div>
     </div>
   );

@@ -7,8 +7,17 @@ import { FeaturedYachts } from "./components/FeaturedYachts";
 import { Events } from "./components/Events";
 import { Gallery } from "./components/Gallery";
 import { ScrollToTop } from "@/components/shared/ScrollToTop";
+import { useQuery } from "@tanstack/react-query";
+import { QUERY_KEYS } from "@/constants/query-keys";
+import rentService from "@/services/rents";
 
 const HomePage = () => {
+  const { data: featuredData, isLoading: featuredLoading } = useQuery({
+    queryKey: [QUERY_KEYS.FEATURED_RENTS],
+    queryFn: () => rentService.getAll({ type: "featured" }),
+  });
+  const featuredRents = featuredData?.data.items;
+
   const [scrollY, setScrollY] = useState(0);
   const handleScroll = () => {
     setScrollY(window.scrollY);
@@ -36,7 +45,7 @@ const HomePage = () => {
       <Hero />
       <AboutUs />
       <VideoAdd />
-      <FeaturedYachts />
+      <FeaturedYachts isLoading={featuredLoading} rents={featuredRents} />
       <Events />
       <Gallery />
     </div>

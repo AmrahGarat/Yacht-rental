@@ -4,7 +4,7 @@ export const getAllRentSchema: Schema = {
   type: {
     in: ["query"],
     matches: {
-      options: [/^(popular)$/],
+      options: [/^(featured)$/],
       errorMessage: "type can be only 'featured'",
     },
     optional: true,
@@ -24,7 +24,7 @@ export const getAllRentSchema: Schema = {
     isString: true,
     optional: true,
   },
-  categoryId: {
+  category: {
     in: ["query"],
     optional: true,
   },
@@ -137,6 +137,11 @@ export const createRentSchema: Schema = {
     optional: true,
     notEmpty: true,
   },
+  showInFeatured: {
+    in: ["body"],
+    isBoolean: true,
+    optional: true,
+  },
   files: {
     custom: {
       options: (_, { req }) => {
@@ -200,5 +205,10 @@ export const editRentSchema: Schema = {
     isString: true,
     optional: true,
     notEmpty: true,
+  },
+  showInFeatured: {
+    in: ["body"],
+    isBoolean: true,
+    optional: true,
   },
 };

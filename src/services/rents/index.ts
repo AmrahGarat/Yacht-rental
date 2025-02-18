@@ -3,13 +3,14 @@ import {
   RentRequestPayload,
   GetAllRentResponseType,
   GetByIdRentResponseType,
+  // GetAllRequestQueryData,
 } from "./types";
 
 const getAll = async (
   pageParams?: {
     take?: number;
     skip?: number;
-    type?: "recommended" | "popular";
+    type?: "featured";
   },
   searchParamsStr?: string
 ) => {
@@ -22,6 +23,24 @@ const getAll = async (
     `/rent?${searchParams.toString()}`
   );
 };
+// const getAll = async (queryData: GetAllRequestQueryData) => {
+//   const searchParams = new URLSearchParams();
+//   const keys = Object.keys(queryData);
+
+//   keys.forEach((key) => {
+//     if (queryData[key as keyof GetAllRequestQueryData]) {
+//       searchParams.append(
+//         key,
+//         String(queryData[key as keyof GetAllRequestQueryData])
+//       );
+//     }
+//   });
+
+//   return await axiosInstance.get<GetAllRentResponseType>(
+//     `/rent?${searchParams.toString()}`
+//   );
+// };
+
 const getById = async (id: string) => {
   return await axiosInstance.get<GetByIdRentResponseType>(`/rent/${id}`);
 };

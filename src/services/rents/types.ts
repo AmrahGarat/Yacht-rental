@@ -1,5 +1,18 @@
 import { Rent } from "@/types";
 
+// export type GetAllRequestQueryData = {
+//   type?: "featured";
+//   take?: number;
+//   skip?: number;
+//   search?: string;
+//   category?: number;
+//   min_price?: number;
+//   max_price?: number;
+//   location?: string;
+//   pickup_date?: string;
+//   dropoff_date?: string;
+// };
+
 export type GetAllRentResponseType = {
   items: Rent[];
   message: string;

@@ -40,7 +40,7 @@ export const Filters = () => {
   const filters: Filters = useMemo(
     () => [
       {
-        label: "Type",
+        label: "Category",
         options: categoryOptions,
       },
       {
@@ -154,6 +154,9 @@ export const Filters = () => {
                     <Checkbox
                       id={`${filter.label}-${option.value}`}
                       onClick={() => handleChange(filter.label, option.value)}
+                      defaultChecked={searchParams
+                        .getAll(filter.label.toLowerCase())
+                        .includes(option.value)}
                       className="h-5 w-5"
                     />
                     <label
