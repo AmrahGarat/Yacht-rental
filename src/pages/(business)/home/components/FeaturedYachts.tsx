@@ -5,6 +5,9 @@ import { paths } from "@/constants/paths";
 import { Rent } from "@/types";
 import { Link, useNavigate } from "react-router-dom";
 
+import { Swiper, SwiperSlide, SwiperRef } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+
 type Props = {
   isLoading?: boolean;
   rents?: Rent[];
@@ -29,7 +32,9 @@ export const FeaturedYachts = ({ isLoading = false, rents }: Props) => {
           See All
         </Button>
       </div>
-      <div className="grid lg:grid-cols-3 gap-6 lg:gap-3 xl:gap-6 justify-center">
+      <div
+        className={`hidden md:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8`}
+      >
         <RenderIf condition={isLoading}>
           {[1, 2, 3].map((index) => (
             <RentCard.Skeleton key={index} />
@@ -40,6 +45,27 @@ export const FeaturedYachts = ({ isLoading = false, rents }: Props) => {
             <RentCard key={rent._id} rent={rent} />
           ))}
         </RenderIf>
+      </div>
+      <div>
+        <div className="md: hidden">
+          <Swiper
+            loop
+            navigation
+            autoplay={{ delay: 2000 }}
+            spaceBetween={10}
+            slidesPerView={3}
+            className="w-full "
+            modules={[Navigation, Autoplay]}
+          >
+            <RenderIf condition={!isLoading}>
+              {rents?.map((rent) => (
+                <SwiperSlide key={rent._id}>
+                  <RentCard key={rent._id} rent={rent} />
+                </SwiperSlide>
+              ))}
+            </RenderIf>
+          </Swiper>
+        </div>
       </div>
     </div>
   );
