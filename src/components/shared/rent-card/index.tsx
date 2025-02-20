@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { paths } from "@/constants/paths";
@@ -12,6 +12,7 @@ import CrewSizeImg from "@/assets/icons/crew-size.svg";
 import YachtSizeImg from "@/assets/icons/yacht-size.svg";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Rent } from "@/types";
+import { formatPrice } from "@/lib/utils";
 
 type Props = {
   rent: Rent;
@@ -20,8 +21,9 @@ type Props = {
 export const RentCard = ({ rent }: Props) => {
   const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
-  const id = "asdc-12d1w-12d1w-12d1w-12d1w";
+  // const id = "asdc-12d1w-12d1w-12d1w-12d1w";
   const {
+    _id,
     name,
     category,
     description,
@@ -34,26 +36,23 @@ export const RentCard = ({ rent }: Props) => {
   } = rent;
   const mainImage = images[0];
 
-  function navigateToDetail() {
-    navigate(paths.DETAIL(id));
-  }
-
   return (
     <div className="w-full bg-white rounded-[20px]">
-      <img
-        src={mainImage}
-        alt="yacht flying fox"
-        className="pb-2 rounded-[20px] cursor-pointer"
-        onClick={navigateToDetail}
-      />
+      <Link to={paths.DETAIL(_id)}>
+        <img
+          src={mainImage}
+          alt="yacht flying fox"
+          className="pb-2 rounded-[20px] cursor-pointer"
+        />
+      </Link>
       <div className="flex justify-between p-4">
         <div className="flex flex-col gap-1 text-md text-secondary">
-          <h4
-            onClick={navigateToDetail}
+          <Link
+            to={paths.DETAIL(_id)}
             className="text-secondary font-[Unna-Italic] text-[24px] cursor-pointer hover:underline"
           >
             {name}
-          </h4>
+          </Link>
           <p>{category.name}</p>
         </div>
         <button onClick={() => setIsLiked(!isLiked)}>
@@ -86,12 +85,17 @@ export const RentCard = ({ rent }: Props) => {
           </p>
         </div>
       </div>
-      <p className="text-[#9499A6] text-sm leading-[160%] p-4">{description}</p>
+      <p className="text-[#9499A6] text-sm leading-[160%] p-4 overflow-hidden overflow-ellipsis line-clamp-3">
+        {description}
+      </p>
+
       <div className="flex justify-between items-center p-4">
         <p className="text-secondary text-xl">
-          ${price} / <span className="text-sm">week</span>
+          {formatPrice(price)} / <span className="text-sm">week</span>
         </p>
-        <Button>Book Now</Button>
+        <Button asChild>
+          <Link to={paths.PAYMENT(_id)}>Book Now</Link>
+        </Button>
       </div>
     </div>
   );
@@ -100,18 +104,12 @@ export const RentCard = ({ rent }: Props) => {
 RentCard.Skeleton = function () {
   return (
     <div className="w-full bg-white rounded-[20px] shadow-lg overflow-hidden">
-      {/* Image Skeleton */}
       <Skeleton className="w-full h-[200px] md:h-[220px] rounded-[20px] bg-gradient-to-r from-blue-100 to-white" />
-
       <div className="p-4 space-y-2">
-        {/* Title Skeleton */}
         <Skeleton className="h-7 w-3/5 rounded-lg bg-blue-200" />
-        {/* Type Skeleton */}
         <Skeleton className="h-4 w-1/4 rounded-lg bg-blue-100" />
       </div>
-
       <div className="flex justify-between items-center p-4">
-        {/* Yacht Features Skeletons */}
         {[...Array(4)].map((_, index) => (
           <div key={index} className="flex gap-2 items-center">
             <Skeleton className="w-6 h-6 rounded-full bg-blue-300 shadow-sm" />
@@ -119,16 +117,11 @@ RentCard.Skeleton = function () {
           </div>
         ))}
       </div>
-
-      {/* Description Skeleton */}
       <div className="p-4">
         <Skeleton className="h-16 w-full rounded-lg bg-gradient-to-r from-blue-100 to-white" />
       </div>
-
       <div className="flex justify-between items-center p-4">
-        {/* Price Skeleton */}
         <Skeleton className="h-7 w-1/4 rounded-lg bg-blue-300" />
-        {/* Button Skeleton with Glow */}
         <Skeleton className="h-10 w-24 rounded-lg bg-blue-400 shadow-md animate-pulse" />
       </div>
     </div>

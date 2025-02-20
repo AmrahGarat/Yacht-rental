@@ -38,7 +38,7 @@ export function DatePicker({
             "w-full justify-start text-left p-0 bg-white text-xs !text-secondary font-medium tracking-[-0.24px] rounded-[5px] hover:bg-white",
             !date && "text-muted-foreground",
             variant === "secondary" &&
-              "p-4 !bg-secondary hover:bg-[#F6F7F9] text-sm font-normal rounded-sm shadow-sm"
+              "p-4 !bg-gray-100 hover:bg-[#F6F7F9] !text-sm font-normal rounded-sm shadow-sm !text-gray-500"
           )}
         >
           <RenderIf condition={variant === "primary"}>
