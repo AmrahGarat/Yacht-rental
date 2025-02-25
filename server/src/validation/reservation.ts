@@ -16,6 +16,31 @@ export const createReservationSchema: Schema = {
     isString: true,
     notEmpty: true,
   },
+  location: {
+    in: ["body"],
+    isString: true,
+    notEmpty: true,
+  },
+  billingName: {
+    in: ["body"],
+    isString: true,
+    notEmpty: true,
+  },
+  billingPhoneNumber: {
+    in: ["body"],
+    isString: true,
+    notEmpty: true,
+  },
+  billingAddress: {
+    in: ["body"],
+    isString: true,
+    notEmpty: true,
+  },
+  billingCity: {
+    in: ["body"],
+    isString: true,
+    notEmpty: true,
+  },
 };
 
 export const changeStatusSchema: Schema = {

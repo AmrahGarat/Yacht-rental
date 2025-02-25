@@ -6,6 +6,10 @@ import { Link } from "react-router-dom";
 import { paths } from "@/constants/paths";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
+import { useSelector } from "react-redux";
+import { selectUserData } from "@/store/features/userSlice";
+import { toast } from "sonner";
+import { ModalTypeEnum, useDialog } from "@/hooks/useDialog";
 // import DOMPurify from "dompurify";
 
 type Props = {
@@ -13,6 +17,8 @@ type Props = {
 };
 
 export const YachtInformation = ({ rent }: Props) => {
+  const { user } = useSelector(selectUserData);
+  const { openDialog } = useDialog();
   const [isLiked, setIsLiked] = useState(false);
   const {
     _id,
@@ -98,7 +104,17 @@ export const YachtInformation = ({ rent }: Props) => {
             </p>
             <div className="w-full bg-secondary text-white py-3 rounded-md text-lg hover:bg-blue-500 transition duration-300">
               <Button asChild>
-                <Link to={paths.PAYMENT(_id)}>Book This Yacht</Link>
+                <Link
+                  to={paths.PAYMENT(_id)}
+                  onClick={() => {
+                    if (!user) {
+                      toast.warning("Please login to book the Yacht");
+                      openDialog(ModalTypeEnum.LOGIN);
+                    }
+                  }}
+                >
+                  Book This Yacht
+                </Link>
               </Button>
             </div>
           </div>

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Reservation from "../mongoose/schemas/reservation";
 import Rent from "../mongoose/schemas/rent";
 import { calculateDateDifference } from "../utils/date";
+import { Rent as TRent } from "../types/schema";
 
 const getAll = async (req: Request, res: Response) => {
   try {
@@ -11,7 +12,22 @@ const getAll = async (req: Request, res: Response) => {
       filter.user = user?._id.toString() ?? "";
     }
 
-    const reservations = await Reservation.find(filter);
+    const reservations = await Reservation.find(filter).populate(
+      "rent location",
+      "images price currency name description"
+    );
+    // .populate("location");
+    console.log(reservations);
+
+    reservations.forEach((reservation) => {
+      (reservation.rent as TRent).images = (
+        reservation.rent as TRent
+      ).images.map((image) => {
+        if (image.includes(process.env.BASE_URL!)) return image;
+        return `${process.env.BASE_URL}/public/rent/${image}`;
+      });
+    });
+
     res.json({
       items: reservations,
       message: "Reservation fetched successfully",
@@ -24,7 +40,16 @@ const getAll = async (req: Request, res: Response) => {
 
 const create = async (req: Request, res: Response) => {
   try {
-    const { startDate, endDate, rentId } = req.matchedData;
+    const {
+      startDate,
+      endDate,
+      location,
+      billingName,
+      billingAddress,
+      billingPhoneNumber,
+      billingCity,
+      rentId,
+    } = req.matchedData;
 
     const rent = await Rent.findById(rentId);
 
@@ -55,26 +80,19 @@ const create = async (req: Request, res: Response) => {
     const reservation = new Reservation({
       rent: rentId,
       user: req.user?._id,
+      location,
       startDate,
       endDate,
       total,
+      billing: {
+        name: billingName,
+        address: billingAddress,
+        phoneNumber: billingPhoneNumber,
+        city: billingCity,
+      },
     });
     await reservation.save();
 
-    // const reservation = new Reservation({
-    //   rent: rentId,
-    //   user: req.user?._id,
-    //   location,
-    //   startDate,
-    //   endDate,
-    //   total,
-    //   // billing: {
-    //   //   name: billingName,
-    //   //   address: billingAddress,
-    //   //   phoneNumber: billingPhoneNumber,
-    //   //   townCity: billingTownCity,
-    //   // },
-    // });
     res.json({
       message: "Reservation created successfully",
       item: reservation,

@@ -1,11 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { paths } from "@/constants/paths";
 
 import HeartEmptyImg from "@/assets/icons/heart-empty.svg";
 import HeartFilledRedImg from "@/assets/icons/heart-filled-red.svg";
-import YachtFlyingFoxImg from "@/assets/images/yacht-flying-fox.jpeg";
+// import YachtFlyingFoxImg from "@/assets/images/yacht-flying-fox.jpeg";
 import GuestsSizeImg from "@/assets/icons/guests-size.svg";
 import BedroomNumberImg from "@/assets/icons/bedroom-number.svg";
 import CrewSizeImg from "@/assets/icons/crew-size.svg";
@@ -13,14 +13,20 @@ import YachtSizeImg from "@/assets/icons/yacht-size.svg";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Rent } from "@/types";
 import { formatPrice } from "@/lib/utils";
+import { useSelector } from "react-redux";
+import { selectUserData } from "@/store/features/userSlice";
+import { toast } from "sonner";
+import { ModalTypeEnum, useDialog } from "@/hooks/useDialog";
 
 type Props = {
   rent: Rent;
 };
 
 export const RentCard = ({ rent }: Props) => {
+  const { user } = useSelector(selectUserData);
+  const { openDialog } = useDialog();
   const [isLiked, setIsLiked] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // const id = "asdc-12d1w-12d1w-12d1w-12d1w";
   const {
     _id,
@@ -94,7 +100,17 @@ export const RentCard = ({ rent }: Props) => {
           {formatPrice(price)} / <span className="text-sm">week</span>
         </p>
         <Button asChild>
-          <Link to={paths.PAYMENT(_id)}>Book Now</Link>
+          <Link
+            to={paths.PAYMENT(_id)}
+            onClick={() => {
+              if (!user) {
+                toast.warning("Please login to book the Yacht");
+                openDialog(ModalTypeEnum.LOGIN);
+              }
+            }}
+          >
+            Book Now
+          </Link>
         </Button>
       </div>
     </div>

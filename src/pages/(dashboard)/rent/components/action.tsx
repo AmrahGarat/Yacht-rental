@@ -316,7 +316,7 @@ const ActionForm = ({ type }: Props) => {
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="100000"
+                      placeholder="10000"
                       {...field}
                       onChange={(e) => {
                         field.onChange({

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import bgImage from "@/assets/images/pxfuel.jpg";
 import Hero from "./components/Hero";
 import AboutUs from "./components/AboutUs";
@@ -10,6 +10,7 @@ import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/query-keys";
 import rentService from "@/services/rents";
+import { CircleFadingArrowUp } from "lucide-react";
 
 const HomePage = () => {
   const { data: featuredData, isLoading: featuredLoading } = useQuery({
@@ -32,8 +33,12 @@ const HomePage = () => {
 
   const backgroundPosition = `center ${scrollY * 0.4}px`;
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <div className="relative pb-8 lg:pb-16 bg-transparent">
+    <div className="relative bg-transparent">
       <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center z-[-1]"
         style={{
@@ -48,6 +53,16 @@ const HomePage = () => {
       <FeaturedYachts isLoading={featuredLoading} rents={featuredRents} />
       <Events />
       <Gallery />
+
+      {/* Scroll to Top Button */}
+      {scrollY > 300 && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 p-3 bg-blue-500 text-white rounded-full shadow-lg transition hover:bg-blue-600"
+        >
+          <CircleFadingArrowUp size={20} />
+        </button>
+      )}
     </div>
   );
 };

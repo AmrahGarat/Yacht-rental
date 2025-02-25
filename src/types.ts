@@ -47,10 +47,9 @@ export type Reservation = {
     townCity: string;
   };
   createdAt: string;
-  dropOffLocation: string;
   endDate: string;
   id: string;
-  pickUpLocation: string;
+  location: string;
   rent: Rent | string;
   startDate: string;
   status: ReservationStatus;
@@ -66,7 +65,6 @@ export type Review = {
   content: string;
   createdAt: string;
   id: string;
-  rating: number;
   rent: Rent;
   status: ReviewStatus;
   _id: string;

@@ -2,7 +2,6 @@ import {
   Calendar,
   Home,
   Inbox,
-  PlaneIcon,
   Search,
   Settings,
   ShipIcon,
@@ -28,9 +27,14 @@ const items = [
     icon: Home,
   },
   {
-    title: "Rents",
+    title: "Yacht rents",
     url: paths.DASHBOARD.RENTS.LIST,
     icon: ShipIcon,
+  },
+  {
+    title: "Reservations",
+    url: paths.DASHBOARD.RESERVATIONS.LIST,
+    icon: Calendar,
   },
 ];
 

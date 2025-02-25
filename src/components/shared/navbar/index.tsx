@@ -6,7 +6,7 @@ import { paths } from "@/constants/paths";
 
 export const Navbar = () => {
   return (
-    <div className="bg-white  py-6 md:py-10 sticky top-0 z-20">
+    <div className="bg-white  py-6 md:py-10 sticky top-0 z-30">
       <div className="container flex justify-between items-center">
         <div className="flex items-center gap-x-2.5 md:gap-x-5 lg:gap-x-10">
           <img

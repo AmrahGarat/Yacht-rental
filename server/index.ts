@@ -12,7 +12,7 @@ import locationRoutes from "./src/routes/location";
 import categoryRoutes from "./src/routes/category";
 import authRoutes from "./src/routes/auth";
 import rentRoutes from "./src/routes/rent";
-// import reviewRoutes from "./routes/review";
+import reviewRoutes from "./src/routes/review";
 // import conversationRoutes from "./routes/conversation";
 
 // import { connectSocket } from "./socket";
@@ -57,7 +57,7 @@ app.use("/category", categoryRoutes);
 app.use("/location", locationRoutes);
 app.use("/rent", rentRoutes);
 app.use("/reservation", reservationRoutes);
-// app.use("/review", reviewRoutes);
+app.use("/review", reviewRoutes);
 // app.use("/conversation", conversationRoutes);
 
 app.listen(PORT, () => {
