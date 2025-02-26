@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Rent from "../mongoose/schemas/rent";
 import Category from "../mongoose/schemas/category";
+import Review from "../mongoose/schemas/review";
 
 const getAll = async (req: Request, res: Response) => {
   try {
@@ -110,10 +111,10 @@ const getById = async (req: Request, res: Response) => {
       return;
     }
 
-    // const reviews = await Review.find({
-    //   rent: id,
-    //   status: "approved",
-    // }).populate("author", "name surname");
+    const reviews = await Review.find({
+      rent: id,
+      status: "approved",
+    }).populate("author", "name surname");
 
     rent.images = rent.images.map(
       (image) => `${process.env.BASE_URL}/public/rent/${image}`
@@ -122,8 +123,8 @@ const getById = async (req: Request, res: Response) => {
     res.json({
       message: "success",
       item: rent,
-      // ...rent.toObject(),
-      // reviews,
+      ...rent.toObject(),
+      reviews,
     });
   } catch (err) {
     console.log(err);
