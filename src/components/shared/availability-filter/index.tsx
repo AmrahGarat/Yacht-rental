@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { CustomSelect } from "../Select";
 import { useQuery } from "@tanstack/react-query";
 import locationService from "@/services/location";
@@ -49,9 +48,6 @@ export const AvailabilityFilter = () => {
           showDatePicker
         />
       </div>
-
-      {/* Book Button */}
-      <Button className="mt-3">Book</Button>
     </div>
   );
 };
@@ -79,7 +75,6 @@ const Card = ({
   );
 
   // const selectedValue = searchParams.get(`${type}_location`);
-
   function handleChange(value: string) {
     searchParams.set(`${type}`, value);
     setSearchParams(searchParams);

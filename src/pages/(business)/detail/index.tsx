@@ -1,6 +1,6 @@
 import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import { FeaturedYachts } from "../home/components/FeaturedYachts";
-import Reviews from "./components/Reviews";
+import { ReviewsSection } from "./components/Reviews";
 import YachtAmenities from "./components/YachtAmenities";
 import YachtInformation from "./components/YachtInformation";
 import YachtMainPictutes from "./components/YachtMainPictutes";
@@ -56,7 +56,7 @@ const RentDetailPage = () => {
       <YachtInformation rent={rent} />
       <YachtOtherPictures />
       <YachtAmenities />
-      <Reviews />
+      <ReviewsSection reviews={rent.reviews} />
       <FeaturedYachts isLoading={featuredLoading} rents={featuredRents} />
       <ScrollToTop />
     </div>

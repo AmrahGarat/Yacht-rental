@@ -56,11 +56,11 @@ const rentSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  // reviews: {
-  //   type: [Types.ObjectId],
-  //   ref: "Review",
-  //   default: [],
-  // },
+  reviews: {
+    type: [Types.ObjectId],
+    ref: "Review",
+    default: [],
+  },
 });
 
 rentSchema.set("toJSON", {

@@ -6,7 +6,7 @@ import { Spinner } from "@/components/shared/Spinner";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { paths } from "@/constants/paths";
-import { DataTable } from "./data-table";
+import { DataTable } from "@/components/shared/DataTable";
 
 const DashboardRentsPage = () => {
   const { data, isLoading, isError } = useQuery({

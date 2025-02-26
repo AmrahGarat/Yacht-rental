@@ -10,6 +10,10 @@ import DashboardRentListPage from "@/pages/(dashboard)/rent/list";
 import DashboardRentCreatePage from "@/pages/(dashboard)/rent/create";
 import DashboardRentEditPage from "@/pages/(dashboard)/rent/edit";
 import DashboardLayout from "@/components/shared/DashboardLayout";
+import AuthLayout from "@/components/shared/AuthLayout";
+import ReservationsPage from "@/pages/(business)/reservations";
+import DashboardReservationListPage from "@/pages/(dashboard)/reservation";
+import DashboardReviewListPage from "@/pages/(dashboard)/review";
 
 export const router = createBrowserRouter([
   {
@@ -29,8 +33,18 @@ export const router = createBrowserRouter([
         element: <RentDetailPage />,
       },
       {
-        path: paths.PAYMENT(),
-        element: <PaymentPage />,
+        path: "",
+        element: <AuthLayout />,
+        children: [
+          {
+            path: paths.PAYMENT(),
+            element: <PaymentPage />,
+          },
+          {
+            path: paths.RESERVATIONS,
+            element: <ReservationsPage />,
+          },
+        ],
       },
       {
         path: "",
@@ -51,6 +65,14 @@ export const router = createBrowserRouter([
           {
             path: paths.DASHBOARD.RENTS.EDIT(),
             element: <DashboardRentEditPage />,
+          },
+          {
+            path: paths.DASHBOARD.RESERVATIONS.LIST,
+            element: <DashboardReservationListPage />,
+          },
+          {
+            path: paths.DASHBOARD.REVIEWS.LIST,
+            element: <DashboardReviewListPage />,
           },
         ],
       },

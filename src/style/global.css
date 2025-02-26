@@ -125,3 +125,76 @@ html {
 .swiper-button-prev {
   left: 0px !important;
 }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.grayscale-container img {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  transition: 0.2s ease-in-out;
+}
+.grayscale-container img:hover {
+  filter: none;
+  -webkit-filter: grayscale(0);
+}
+
+.stacked-images {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+.stacked-images img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.stacked-images img:nth-child(2) {
+  transform: rotate(-20deg) translateX(-250px);
+  z-index: 1;
+}
+.stacked-images img:nth-child(3) {
+  transform: rotate(20deg) translateX(250px);
+  z-index: 0;
+}
+
+@keyframes fade-slide {
+  from {
+    opacity: 0;
+    transform: translateY(20px) rotate(var(--rotate, 0deg))
+      translateX(var(--translateX, 0px));
+  }
+  to {
+    opacity: 1;
+    transform: rotate(var(--rotate, 0deg)) translateX(var(--translateX, 0px));
+  }
+}
+
+@keyframes ship-sway {
+  0% {
+    transform: translateY(10px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-8deg);
+  }
+  100% {
+    transform: translateY(10px) rotate(8deg);
+  }
+}
+
+.animate-ship-sway {
+  animation: ship-sway 2.5s ease-in-out infinite alternate;
+}
+
+.animate-fade-slide {
+  animation: fade-slide 0.5s ease-in-out forwards;
+}
