@@ -28,17 +28,22 @@ export const getAllRentSchema: Schema = {
     in: ["query"],
     optional: true,
   },
-  size: {
-    in: ["query"],
-    isNumeric: true,
-    optional: true,
-  },
   capacity: {
     in: ["query"],
     isNumeric: true,
     optional: true,
   },
   cabins: {
+    in: ["query"],
+    isNumeric: true,
+    optional: true,
+  },
+  min_size: {
+    in: ["query"],
+    isNumeric: true,
+    optional: true,
+  },
+  max_size: {
     in: ["query"],
     isNumeric: true,
     optional: true,

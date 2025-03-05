@@ -20,7 +20,7 @@ export const ReviewsSection = ({ reviews }: Props) => {
       </div>
       <div className="flex flex-col gap-y-4 lg:gap-y-6 mt-6 lg:mt-8">
         {reviews.map((review) => (
-          <Review key={review.id} review={review} />
+          <Review key={review._id} review={review} />
         ))}
       </div>
     </div>

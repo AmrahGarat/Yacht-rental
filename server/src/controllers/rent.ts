@@ -11,10 +11,11 @@ const getAll = async (req: Request, res: Response) => {
       skip = 0,
       search,
       category,
-      size,
       capacity,
       cabins,
       crew,
+      min_size,
+      max_size,
       min_price,
       max_price,
       location,
@@ -41,10 +42,6 @@ const getAll = async (req: Request, res: Response) => {
         { category: { $in: categoryIds } }
       );
     }
-    if (size) {
-      const sizeList = typeof size === "string" ? [size] : size;
-      filter.size = { $in: sizeList };
-    }
     if (capacity) {
       const capacityList = typeof capacity === "string" ? [capacity] : capacity;
       filter.capacity = { $in: capacityList };
@@ -67,6 +64,13 @@ const getAll = async (req: Request, res: Response) => {
     if (max_price) {
       filter.$and.push({ price: { $lte: +max_price } });
     }
+    if (min_size) {
+      filter.$and.push({ size: { $gte: +min_size } });
+    }
+    if (max_size) {
+      filter.$and.push({ size: { $lte: +max_size } });
+    }
+
     if (location) {
       filter.location = location;
     }
@@ -122,9 +126,7 @@ const getById = async (req: Request, res: Response) => {
 
     res.json({
       message: "success",
-      item: rent,
-      ...rent.toObject(),
-      reviews,
+      item: { ...rent.toObject(), reviews: reviews },
     });
   } catch (err) {
     console.log(err);

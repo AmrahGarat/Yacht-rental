@@ -37,6 +37,7 @@ const RentDetailPage = () => {
   }
 
   const rent = data?.data?.item;
+  console.log(rent);
 
   if (isError || !rent) {
     return (
