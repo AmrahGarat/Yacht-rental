@@ -1,13 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Navbar } from "./navbar";
-import Footer from "./footer";
+// import Footer from "./footer";
 import Dialogs from "./dialogs";
 import { useEffect } from "react";
 import { useAppDispatch } from "@/hooks/redux";
 import { getCurrentUserAsync } from "@/store/features/userSlice";
+import { HelpPopover } from "./help-popover";
 
 const RootLayout = () => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
+
+  const isDashboardPage = location.pathname.includes("dashboard");
+
   useEffect(() => {
     dispatch(getCurrentUserAsync());
   }, []);
@@ -16,6 +21,7 @@ const RootLayout = () => {
       <Navbar />
       <Outlet />
       <Dialogs />
+      {!isDashboardPage && <HelpPopover />}
       {/* <Footer /> */}
     </div>
   );

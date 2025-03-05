@@ -8,6 +8,7 @@ type Props = {
 
 export const Review = ({ review }: Props) => {
   const { author, createdAt, content } = review;
+  console.log(review);
 
   const fullName = `${author.name} ${author.surname}`;
 

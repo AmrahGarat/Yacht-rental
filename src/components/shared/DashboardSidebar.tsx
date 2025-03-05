@@ -2,6 +2,7 @@ import {
   Calendar,
   Home,
   Inbox,
+  MessageCircleIcon,
   MessageSquareMoreIcon,
   Search,
   Settings,
@@ -41,6 +42,11 @@ const items = [
     title: "Reviews",
     url: paths.DASHBOARD.REVIEWS.LIST,
     icon: MessageSquareMoreIcon,
+  },
+  {
+    title: "Chat",
+    url: paths.DASHBOARD.CHAT.VIEW,
+    icon: MessageCircleIcon,
   },
 ];
 

@@ -14,6 +14,7 @@ import AuthLayout from "@/components/shared/AuthLayout";
 import ReservationsPage from "@/pages/(business)/reservations";
 import DashboardReservationListPage from "@/pages/(dashboard)/reservation";
 import DashboardReviewListPage from "@/pages/(dashboard)/review";
+import ChatPage from "@/pages/(dashboard)/chat";
 
 export const router = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ export const router = createBrowserRouter([
           {
             path: paths.DASHBOARD.REVIEWS.LIST,
             element: <DashboardReviewListPage />,
+          },
+          {
+            path: paths.DASHBOARD.CHAT.VIEW,
+            element: <ChatPage />,
+          },
+          {
+            path: paths.DASHBOARD.CHAT.USER(),
+            element: <ChatPage />,
           },
         ],
       },
