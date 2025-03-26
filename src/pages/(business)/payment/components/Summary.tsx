@@ -32,7 +32,7 @@ export const PaymentSummary = ({ rent }: Props) => {
       <div className="w-full h-[1px] bg-secondary lg:my-8 my-6" />
       <div className="flex justify-between items-center">
         <h4 className="text-secondary text-lg lg:text-xl font-bold leading-[150%] tracking-[-0.6px]">
-          Rental Price / Week
+          Rental Price / Day
         </h4>
         <p className="text-secondary text-xl lg:text-2xl leading-normal font-bold">
           {formatPrice(price)}

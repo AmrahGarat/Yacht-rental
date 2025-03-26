@@ -65,7 +65,11 @@ server.listen(PORT, () => {
 
 async function connecToDb() {
   await mongoose.connect(
-    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.is1uz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.is1uz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`,
+    {
+      connectTimeoutMS: 30000, // 30 sec
+      socketTimeoutMS: 45000, // 45 sec
+    }
   );
 }
 connecToDb()

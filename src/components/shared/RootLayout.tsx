@@ -1,6 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { Navbar } from "./navbar";
-// import Footer from "./footer";
 import Dialogs from "./dialogs";
 import { useEffect } from "react";
 import { useAppDispatch } from "@/hooks/redux";
@@ -22,7 +21,6 @@ const RootLayout = () => {
       <Outlet />
       <Dialogs />
       {!isDashboardPage && <HelpPopover />}
-      {/* <Footer /> */}
     </div>
   );
 };

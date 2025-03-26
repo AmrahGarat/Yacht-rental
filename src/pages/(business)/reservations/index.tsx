@@ -63,7 +63,12 @@ const ReservationCard = ({ reservation }: { reservation: Reservation }) => {
   });
 
   function handleCancelReservation() {
-    mutate({ id: reservation.id });
+    const isConfirmed = window.confirm(
+      "Are you sure you want to cancel this reservation?"
+    );
+    if (isConfirmed) {
+      mutate({ id: reservation.id });
+    }
   }
 
   const showReview =

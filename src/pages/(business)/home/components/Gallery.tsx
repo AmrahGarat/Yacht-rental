@@ -26,7 +26,6 @@ export const Gallery = () => {
                 alt="InstagramLogo"
                 className="w-[30px] md:w-[70px] bg-red-400 bg-opacity-30 rounded-[10px]"
               />
-              pictures
             </Link>
           </Button>
         </div>

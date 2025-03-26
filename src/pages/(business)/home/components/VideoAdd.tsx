@@ -1,4 +1,7 @@
+import { useTranslation } from "react-i18next";
+
 export const VideoAdd = () => {
+  const { t } = useTranslation();
   return (
     <div className="relative w-full">
       <div className="relative pb-[56.25%] w-full">
@@ -12,7 +15,7 @@ export const VideoAdd = () => {
         ></iframe>
 
         <div className="absolute top-[5%] left-1/2 transform -translate-x-1/2 text-center text:xl lg:text-4xl text-secondary font-[Unna-Italic] z-10">
-          Subscribe to our
+          {t("subscribe.to.our.youtube.channel")}
           <a
             href="https://www.youtube.com/@RivayachtOfficial"
             target="_blank"
@@ -20,7 +23,6 @@ export const VideoAdd = () => {
           >
             <span className="text-red-600 font-[Unna-Bold]"> YouTube </span>
           </a>
-          channel
         </div>
       </div>
     </div>

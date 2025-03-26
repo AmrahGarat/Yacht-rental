@@ -6,6 +6,7 @@ import MainYachtVideo from "@/assets/videos/videoplayback.mp4";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { paths } from "@/constants/paths";
+import { useTranslation } from "react-i18next";
 
 export const Hero = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +15,7 @@ export const Hero = () => {
   function navigateToList() {
     navigate(paths.LIST);
   }
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isOpen) {
@@ -45,18 +47,13 @@ export const Hero = () => {
         {/* Content on the left */}
         <div className="absolute left-[50px] lg:left-[150px] top-[50px] right-[50px] lg:right-[150px] xl:top-[150px] max-w-[1000px] xl:max-w-[520px]">
           <h1 className="text-[60px] xl:text-[85px] leading-[115%] mb-3 lg:mb-6 font-[Unna-BoldItalic]">
-            Discover the Freedom of the Open Sea
+            {t("heroHeader")}
           </h1>
           <p className="text-[15px] xl:text-[20px] leading-[160%] mb-3 lg:mb-6">
-            Experience the ultimate in luxury and relaxation as you cruise the
-            open waters. Whether you're looking for a serene getaway or an
-            adventurous day on the sea, our yachts offer unparalleled comfort
-            and style. With professional crews and customizable itineraries,
-            every journey is tailored to your desires. Let us help you create
-            unforgettable memories on the water.
+            {t("heroDescription")}
           </p>
           <Button className="text-white !text-[20px]" onClick={navigateToList}>
-            Discover more
+            {t("heroButton")}
           </Button>
         </div>
 

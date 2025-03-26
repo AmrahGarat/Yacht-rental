@@ -11,11 +11,12 @@ import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/query-keys";
 import rentService from "@/services/rents";
 import { CircleFadingArrowUp } from "lucide-react";
+import Footer from "@/components/shared/footer";
 
 const HomePage = () => {
   const { data: featuredData, isLoading: featuredLoading } = useQuery({
     queryKey: [QUERY_KEYS.FEATURED_RENTS],
-    queryFn: () => rentService.getAll({ type: "featured" }),
+    queryFn: () => rentService.getFeature(),
   });
   const featuredRents = featuredData?.data.items;
 
@@ -53,6 +54,7 @@ const HomePage = () => {
       <FeaturedYachts isLoading={featuredLoading} rents={featuredRents} />
       <Events />
       <Gallery />
+      <Footer />
 
       {/* Scroll to Top Button */}
       {scrollY > 300 && (

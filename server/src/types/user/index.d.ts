@@ -6,7 +6,7 @@ export interface IUser {
   surname: string;
   email: string;
   password?: string;
-  // inBlocked: boolean;
+  isBlocked: boolean;
   role: "admin" | "user";
   resetPasswordToken: string;
   resetPasswordTokenExpires: Date;

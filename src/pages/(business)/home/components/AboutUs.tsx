@@ -4,23 +4,22 @@ import Award3Img from "@/assets/images/award3.png";
 import Award4Img from "@/assets/images/award4.avif";
 import Award5Img from "@/assets/images/award5.png";
 import Award6Img from "@/assets/images/award6.png";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 export const AboutUs = () => {
+  const { t } = useTranslation();
   return (
     <div className="container lg:flex lg:gap-14 justify-between py-[40px] lg:py-[120px]">
       <div className="lg:max-w-[500px] text-white">
         <h3 className="text-[15px] lg:text-[20px] leading-[110%] tracking-[1.2px] mb-2.5 lg:mb-5">
-          ABOUT US
+          {t("aboutus.title")}
         </h3>
         <h1 className="text-[30px] lg:text-[48px] leading-[140%] mb-2.5 lg:mb-5">
-          OceanicOdyssey: Embark on an Epic Voyage Beyond the Horizon
+          {t("aboutus.subtitle")}
         </h1>
-        <p className="text-[12px] lg:text-[16px] leading-[110%] mb-2.5 lg:mb-5">
-          OceanicOdyssey offers unforgettable journeys across the world most
-          stunning seas. As your trusted sailing partner, we combine adventure
-          and luxury to create experiences that go beyond the ordinary. Set sail
-          with us and embark on an odyssey like no other.
+        <p className="text-[12px] lg:text-[16px] leading-[160%] mb-2.5 lg:mb-5">
+          {t("aboutus.description")}
         </p>
       </div>
       <div className="lg:max-w-[470px] flex flex-wrap justify-between items-center pt-14 lg:pt-0 grayscale-container cursor-pointer bg-white rounded-[20px] bg-opacity-50 gap-4 p-4 z-20">

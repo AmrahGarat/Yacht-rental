@@ -12,12 +12,16 @@ import "./style/global.css";
 import "swiper/css/navigation";
 import "swiper/css/zoom";
 import "swiper/css";
+import "./locales/index";
+import { ThemeProvider } from "./components/theme-provider";
 
 createRoot(document.getElementById("root")!).render(
-  <Provider store={store}>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <Toaster richColors />
-    </QueryClientProvider>
-  </Provider>
+  <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <Toaster richColors />
+      </QueryClientProvider>
+    </Provider>
+  </ThemeProvider>
 );

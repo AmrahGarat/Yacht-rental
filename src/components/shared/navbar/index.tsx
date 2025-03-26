@@ -3,8 +3,12 @@ import { NavbarActions } from "./Actions";
 import { Search } from "./Search";
 import YachtIcon from "@/assets/icons/yacht.svg";
 import { paths } from "@/constants/paths";
+// import { useTranslation } from "react-i18next";
+import LanguageSelector from "@/components/select/LanguageSelect";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export const Navbar = () => {
+  // const { t } = useTranslation();
   return (
     <div className="bg-white  py-6 md:py-10 sticky top-0 z-30">
       <div className="container flex justify-between items-center">
@@ -21,6 +25,10 @@ export const Navbar = () => {
             OceanicOdyssey
           </Link>
           <Search />
+        </div>
+        <div className="flex gap-2 items-center">
+          <LanguageSelector />
+          <ModeToggle />
         </div>
         <NavbarActions />
       </div>

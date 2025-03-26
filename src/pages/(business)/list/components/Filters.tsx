@@ -13,20 +13,27 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { AvailabilityFilter } from "@/components/shared/availability-filter"; // Import it here
 import { LocationFilter } from "@/components/shared/LocationFilter";
 import { DateFilter } from "@/components/shared/DateFilter";
 
+// Define the types for the filters data
+type FilterOption = {
+  value: string;
+  label: string;
+  count?: number;
+};
+
 type Filters = {
   label: string;
-  options: {
-    value: string;
-    label: string;
-    count?: number;
-  }[];
+  options: FilterOption[];
 }[];
 
-export const Filters = () => {
+// Define the props for the Filters component
+type FiltersProps = {
+  location: string;
+};
+
+export const Filters = ({ location }: FiltersProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCapacity, setSelectedCapacity] = useState<string[]>([]);
@@ -186,20 +193,20 @@ export const Filters = () => {
         )}
       >
         <div className="flex flex-col gap-y-8 lg:gap-y-14">
-          <LocationFilter />
+          <LocationFilter /> {/* Pass location to LocationFilter */}
           <DateFilter />
           {filters.map((filter) => (
             <div key={filter.label}>
               <h4 className="text-[20px] font-semibold tracking-[-0.24px] text-secondary mb-7 uppercase font-[Unna-BoldItalic]">
                 {filter.label}
               </h4>
-              <div className="flex flex-col gap-y-4 lg:gap-y-8">
+              <div className="flex flex-col gap-y-4 lg:gap-y-8 border border-gray-300 p-2 rounded-[5px]">
                 {filter.options.map((option) => (
                   <div
                     key={option.value}
-                    className={`flex gap-x-2 items-center cursor-pointer ${
+                    className={`flex gap-x-2 items-center cursor-pointer  ${
                       selectedCategories.includes(option.value)
-                        ? "bg-gray-200 rounded-sm"
+                        ? "bg-gray-200 rounded-sm pl-2"
                         : ""
                     }`}
                     onClick={() => handleCategoryChange(option.value)}
@@ -218,7 +225,6 @@ export const Filters = () => {
               </div>
             </div>
           ))}
-
           {/* Capacity Dropdown */}
           <div>
             <h4 className="text-[20px] font-semibold tracking-[-0.24px] text-secondary mb-7 uppercase font-[Unna-BoldItalic]">
@@ -226,7 +232,7 @@ export const Filters = () => {
             </h4>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="w-full border-blue-300 !text-left text-secondary bg-white !rounded-md">
+                <Button className="w-full border-gray-300 !text-left text-secondary bg-white !rounded-md !p-[12px] flex justify-start hover:bg-white shadow-none border">
                   {selectedCapacity.length > 0
                     ? `${selectedCapacity.join(", ")} Persons`
                     : "Select Number of Guests"}
@@ -239,7 +245,7 @@ export const Filters = () => {
                     onClick={() => handleCapacityChange(option.value)}
                     className={`cursor-pointer ${
                       selectedCapacity.includes(option.value)
-                        ? "bg-gray-200"
+                        ? "bg-gray-200 "
                         : ""
                     }`}
                   >
@@ -250,15 +256,14 @@ export const Filters = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-
           {/* Cabins Dropdown */}
           <div>
-            <h4 className="text-[20px] font-semibold tracking-[-0.24px] text-secondary mb-7 uppercase font-[Unna-BoldItalic]">
+            <h4 className="text-[20px] font-semibold tracking-[-0.24px] text-secondary mb-7 uppercase font-[Unna-BoldItalic] ">
               Cabins
             </h4>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="w-full border-blue-300 !text-left text-secondary bg-white !rounded-md">
+                <Button className="w-full border-gray-300 !text-left text-secondary bg-white !rounded-md !p-[12px] flex justify-start hover:bg-white shadow-none border">
                   {selectedCabins.length > 0
                     ? `${selectedCabins.join(", ")} Cabins`
                     : "Select Cabins"}
@@ -280,7 +285,6 @@ export const Filters = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-
           {/* Price Filter */}
           <MultiRangeSlider
             min={10000}
@@ -289,7 +293,6 @@ export const Filters = () => {
             unit="$"
             onChange={handleRangeChange}
           />
-
           {/* Size Filter */}
           <MultiRangeSlider
             min={1}
@@ -298,7 +301,6 @@ export const Filters = () => {
             unit="ft²"
             onChange={handleRangeChangeSize}
           />
-
           {/* Reset Filters Button */}
           <div className="flex justify-center mt-6">
             <Button

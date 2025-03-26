@@ -23,6 +23,10 @@ const getAll = async (
     `/rent?${searchParams.toString()}`
   );
 };
+
+const getFeature = async () => {
+  return await axiosInstance.get<GetAllRentResponseType>(`rent/feature`);
+};
 // const getAll = async (queryData: GetAllRequestQueryData) => {
 //   const searchParams = new URLSearchParams();
 //   const keys = Object.keys(queryData);
@@ -84,5 +88,5 @@ const edit = async (data: RentRequestPayload & { id?: string }) => {
   return await axiosInstance.put(`/rent/${data.id}`, formData);
 };
 
-const rentService = { getAll, create, edit, getById };
+const rentService = { getAll, create, edit, getById, getFeature };
 export default rentService;

@@ -17,15 +17,24 @@ import { useSelector } from "react-redux";
 import { selectUserData } from "@/store/features/userSlice";
 import { toast } from "sonner";
 import { ModalTypeEnum, useDialog } from "@/hooks/useDialog";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import {
+  likeItem,
+  unlikeItem,
+  selectLikedItems,
+} from "@/store/features/likesSlice";
 
 type Props = {
   rent: Rent;
 };
 
 export const RentCard = ({ rent }: Props) => {
+  const dispatch = useAppDispatch();
+  const likedItems = useAppSelector(selectLikedItems);
+
   const { user } = useSelector(selectUserData);
   const { openDialog } = useDialog();
-  const [isLiked, setIsLiked] = useState(false);
+  // const [isLiked, setIsLiked] = useState(false);
   // const navigate = useNavigate();
   // const id = "asdc-12d1w-12d1w-12d1w-12d1w";
   const {
@@ -41,6 +50,16 @@ export const RentCard = ({ rent }: Props) => {
     price,
   } = rent;
   const mainImage = images[0];
+
+  const [isLiked, setIsLiked] = useState(likedItems.includes(_id));
+  const handleLike = () => {
+    if (isLiked) {
+      dispatch(unlikeItem(_id));
+    } else {
+      dispatch(likeItem(_id));
+    }
+    setIsLiked(!isLiked);
+  };
 
   return (
     <div className="w-full bg-white rounded-[20px]">
@@ -61,7 +80,7 @@ export const RentCard = ({ rent }: Props) => {
           </Link>
           <p>{category.name}</p>
         </div>
-        <button onClick={() => setIsLiked(!isLiked)}>
+        <button onClick={handleLike}>
           <img src={isLiked ? HeartFilledRedImg : HeartEmptyImg} alt="heart" />
         </button>
       </div>
@@ -97,7 +116,7 @@ export const RentCard = ({ rent }: Props) => {
 
       <div className="flex justify-between items-center p-4">
         <p className="text-secondary text-xl">
-          {formatPrice(price)} / <span className="text-sm">week</span>
+          {formatPrice(price)} / <span className="text-md">Day</span>
         </p>
         <Button asChild>
           <Link

@@ -102,6 +102,30 @@ const getAll = async (req: Request, res: Response) => {
   }
 };
 
+const getFeatureRents = async (req: Request, res: Response) => {
+  try {
+    const items = await Rent.find({ showInFeatured: true }).populate([
+      "category",
+      "location",
+    ]);
+    items.forEach((item) => {
+      item.images = item.images.map(
+        (image) => `${process.env.BASE_URL}/public/rent/${image}`
+      );
+    });
+
+    res.json({
+      message: "success",
+      items,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      message: "Internal Server Error",
+    });
+  }
+};
+
 const getById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -292,4 +316,5 @@ export default {
   create,
   edit,
   remove,
+  getFeatureRents,
 };

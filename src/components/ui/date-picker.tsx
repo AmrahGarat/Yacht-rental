@@ -35,7 +35,7 @@ export function DatePicker({
         <Button
           variant={"ghost"}
           className={cn(
-            "w-full justify-start text-left p-0 bg-white text-xs !text-secondary font-medium tracking-[-0.24px] rounded-[5px] hover:bg-white",
+            "w-full justify-start text-left p-0 bg-white text-xs !text-secondary tracking-[-0.24px] rounded-[5px] hover:bg-white border border-gray-300",
             !date && "text-muted-foreground",
             variant === "secondary" &&
               "p-4 !bg-gray-100 hover:bg-[#F6F7F9] !text-sm font-normal rounded-sm shadow-sm !text-gray-500 !border-blue-400"
