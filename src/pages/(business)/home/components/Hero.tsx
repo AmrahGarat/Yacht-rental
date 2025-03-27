@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
-import Yacht1 from "@/assets/images/yacht-flying-fox.jpeg";
-import Yacht2 from "@/assets/images/yacht-gallery-1.jpeg";
-import Yacht3 from "@/assets/images/yacht-gallery-2.avif";
+import Yacht1 from "@/assets/images/Floating-yacht-1.jpg";
+import Yacht2 from "@/assets/images/Floating-yacht-2.jpg";
+import Yacht3 from "@/assets/images/yacht-flying-fox.jpeg";
+import Yacht4 from "@/assets/images/Floating-yacht-3.jpg";
+import Yacht5 from "@/assets/images/yacht-gallery-1.jpeg";
+import Yacht6 from "@/assets/images/yacht-gallery-2.avif";
+import Yacht7 from "@/assets/images/Floating-yacht-4.jpg";
+import Yacht8 from "@/assets/images/Floating-yacht-5.jpg";
+import Yacht9 from "@/assets/images/Floating-yacht-6.jpg";
 import MainYachtVideo from "@/assets/videos/videoplayback.mp4";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -45,28 +51,31 @@ export const Hero = () => {
       />
       <div className="flex items-center justify-center z-10 h-full relative">
         {/* Content on the left */}
-        <div className="absolute left-[50px] lg:left-[150px] top-[50px] right-[50px] lg:right-[150px] xl:top-[150px] max-w-[1000px] xl:max-w-[520px]">
-          <h1 className="text-[60px] xl:text-[85px] leading-[115%] mb-3 lg:mb-6 font-[Unna-BoldItalic]">
+        <div className="absolute left-[50px] lg:left-[150px] top-[50px] right-[50px] lg:right-[150px] xl:top-[150px] max-w-[1000px] md:max-w-[300px] lg:max-w-[400px]">
+          <h1 className="text-[30px] lg:text-[60px] xl:text-[75px] leading-[115%] mb-3 lg:mb-6 font-[Unna-BoldItalic]">
             {t("heroHeader")}
           </h1>
-          <p className="text-[15px] xl:text-[20px] leading-[160%] mb-3 lg:mb-6">
+          <p className="text-[10px] lg:text-[15px] xl:text-[20px] leading-[160%] mb-3 lg:mb-6">
             {t("heroDescription")}
           </p>
-          <Button className="text-white !text-[20px]" onClick={navigateToList}>
+          <Button
+            className="text-white lg:!text-[20px]"
+            onClick={navigateToList}
+          >
             {t("heroButton")}
           </Button>
         </div>
 
         {/* Expandable Stacked Images */}
         <div
-          className="absolute xl:right-[200px] bottom-[-100px] sm:bottom-0 xl:bottom-[-200px] xl:top-1/2 transform -translate-y-1/2 flex flex-col items-center z-10 cursor-pointer"
+          className="absolute md:right-[150px] bottom-0 md:bottom-[-200px] top-[550px] sm:top-[450px] md:top-[400px] transform -translate-y-1/2 flex flex-col items-center z-10 cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
         >
           {/* Main Clickable Image */}
           <img
             src={Yacht1}
             alt="Yacht1"
-            className={`z-10 rounded-xl w-[250px] xl:w-[400px] transition-transform duration-300 ${
+            className={`z-10 rounded-xl w-[150px] md:w-[250px] xl:w-[400px] transition-transform duration-300 ${
               !isOpen ? "animate-ship-sway" : ""
             }`}
           />
@@ -76,7 +85,7 @@ export const Hero = () => {
             <img
               src={Yacht2}
               alt="Yacht2"
-              className="z-10 rounded-xl w-[220px] xl:w-[360px] opacity-0 animate-fade-slide"
+              className="z-10 rounded-xl w-[140px] md:w-[220px] xl:w-[360px] opacity-0 animate-fade-slide"
               style={
                 {
                   "--rotate": "-10deg",
@@ -90,7 +99,7 @@ export const Hero = () => {
             <img
               src={Yacht3}
               alt="Yacht3"
-              className="z-10 rounded-xl w-[190px] xl:w-[320px] opacity-0 animate-fade-slide"
+              className="z-10 rounded-xl w-[130px] md:w-[190px] xl:w-[320px] opacity-0 animate-fade-slide"
               style={
                 {
                   "--rotate": "10deg",
@@ -102,9 +111,9 @@ export const Hero = () => {
 
           {visibleImages >= 3 && (
             <img
-              src={Yacht2}
-              alt="Yacht2"
-              className="z-10 rounded-xl w-[160px] xl:w-[280px] opacity-0 animate-fade-slide"
+              src={Yacht4}
+              alt="Yacht4"
+              className="z-10 rounded-xl w-[120px] md:w-[160px] xl:w-[280px] opacity-0 animate-fade-slide"
               style={
                 {
                   "--rotate": "-10deg",
@@ -116,9 +125,9 @@ export const Hero = () => {
 
           {visibleImages >= 4 && (
             <img
-              src={Yacht2}
-              alt="Yacht2"
-              className="z-10 rounded-xl w-[130px] xl:w-[240px] opacity-0 animate-fade-slide"
+              src={Yacht5}
+              alt="Yacht5"
+              className="z-10 rounded-xl w-[110px] md:w-[130px] xl:w-[240px] opacity-0 animate-fade-slide"
               style={
                 {
                   "--rotate": "10deg",
@@ -129,9 +138,9 @@ export const Hero = () => {
           )}
           {visibleImages >= 5 && (
             <img
-              src={Yacht2}
-              alt="Yacht2"
-              className="z-10 rounded-xl w-[100px] xl:w-[200px] opacity-0 animate-fade-slide"
+              src={Yacht6}
+              alt="Yacht6"
+              className="z-10 rounded-xl w-[100px] md:w-[100px] xl:w-[200px] opacity-0 animate-fade-slide"
               style={
                 {
                   "--rotate": "-10deg",
@@ -142,9 +151,9 @@ export const Hero = () => {
           )}
           {visibleImages >= 6 && (
             <img
-              src={Yacht2}
-              alt="Yacht2"
-              className="z-10 rounded-xl w-[70px] xl:w-[160px] opacity-0 animate-fade-slide"
+              src={Yacht7}
+              alt="Yacht7"
+              className="z-10 rounded-xl w-[90px] md:w-[70px] xl:w-[160px] opacity-0 animate-fade-slide"
               style={
                 {
                   "--rotate": "10deg",
@@ -155,9 +164,9 @@ export const Hero = () => {
           )}
           {visibleImages >= 7 && (
             <img
-              src={Yacht2}
-              alt="Yacht2"
-              className="z-10 rounded-xl w-[40px] xl:w-[120px] opacity-0 animate-fade-slide"
+              src={Yacht8}
+              alt="Yacht8"
+              className="z-10 rounded-xl w-[80px] md:w-[40px] xl:w-[120px] opacity-0 animate-fade-slide"
               style={
                 {
                   "--rotate": "-10deg",
@@ -168,9 +177,9 @@ export const Hero = () => {
           )}
           {visibleImages >= 8 && (
             <img
-              src={Yacht2}
-              alt="Yacht2"
-              className="z-10 rounded-xl w-[10px] xl:w-[80px] opacity-0 animate-fade-slide"
+              src={Yacht9}
+              alt="Yacht9"
+              className="z-10 rounded-xl w-[70px] xl:w-[80px] opacity-0 animate-fade-slide"
               style={
                 {
                   "--rotate": "10deg",

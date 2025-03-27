@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   isLoading?: boolean;
@@ -18,20 +19,21 @@ export const FeaturedYachts = ({ isLoading = false, rents }: Props) => {
   function navigateToList() {
     navigate(paths.LIST);
   }
+  const { t } = useTranslation();
 
   return (
     <div className="bg-gray-200 bg-opacity-80">
-      <div className="container pt-[120px] pb-[120px]">
-        <div className="flex justify-between items-center pb-5">
-          <h3 className="text-[48px] font-[Unna-Italic] text-secondary leading-[140%]">
-            Featured Yachts
+      <div className="container py-[50px] lg:py-[120px]">
+        <div className="flex flex-col lg:flex-row justify-between items-center pb-5">
+          <h3 className="text-[30px] lg:text-[48px] font-[Unna-Italic] text-secondary leading-[140%] lg:pb-0 pb-5">
+            {t("home.featured_yachts")}
           </h3>
           <Button
             variant={"link"}
-            className="text-secondary !text-[25px]"
+            className="text-secondary text-[20px] lg:!text-[25px]"
             onClick={navigateToList}
           >
-            Browse <br /> all Yachts
+            {t("home.view_all")}
           </Button>
         </div>
 
@@ -55,7 +57,7 @@ export const FeaturedYachts = ({ isLoading = false, rents }: Props) => {
           >
             <RenderIf condition={!isLoading}>
               {rents?.map((rent) => (
-                <SwiperSlide key={rent._id} style={{ minWidth: "300px" }}>
+                <SwiperSlide key={rent._id} style={{ minWidth: "250px" }}>
                   {" "}
                   {/* Add min-width for 3 slides */}
                   <div className="w-full flex justify-center">

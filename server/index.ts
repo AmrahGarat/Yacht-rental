@@ -14,6 +14,7 @@ import authRoutes from "./src/routes/auth";
 import rentRoutes from "./src/routes/rent";
 import reviewRoutes from "./src/routes/review";
 import conversationRoutes from "./src/routes/conversation";
+import favoriteRoutes from "./src/routes/favorite";
 
 import { connectSocket } from "./src/socket";
 import "./src/auth/local-strategy";
@@ -58,6 +59,7 @@ app.use("/rent", rentRoutes);
 app.use("/reservation", reservationRoutes);
 app.use("/review", reviewRoutes);
 app.use("/conversation", conversationRoutes);
+app.use("/favorite", favoriteRoutes);
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

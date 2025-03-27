@@ -1,11 +1,12 @@
 export const paths = {
   HOME: "/",
   LIST: "/list",
+  FAVORITES: "/favorites",
+  RESET_PASSWORD: "/reset-password/:token",
   DETAIL: (id = ":id") => `/detail/${id}`,
   PAYMENT: (id = ":id") => `/payment/${id}`,
   RESERVATIONS: "/reservations",
   QUESTIONS: "/faq",
-  LIKES: "/likes",
   ADMINPROFILE: "/admin-profile",
   EVENTS: {
     MAIN: "/events",

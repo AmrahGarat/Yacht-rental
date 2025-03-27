@@ -1,6 +1,3 @@
-import { useState } from "react";
-import HeartEmptyImg from "@/assets/icons/heart-empty.svg";
-import HeartFilledRedImg from "@/assets/icons/heart-filled-red.svg";
 import { Rent } from "@/types";
 import { Link } from "react-router-dom";
 import { paths } from "@/constants/paths";
@@ -10,12 +7,7 @@ import { useSelector } from "react-redux";
 import { selectUserData } from "@/store/features/userSlice";
 import { toast } from "sonner";
 import { ModalTypeEnum, useDialog } from "@/hooks/useDialog";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-  likeItem,
-  unlikeItem,
-  selectLikedItems,
-} from "@/store/features/likesSlice";
+
 // import DOMPurify from "dompurify";
 
 type Props = {
@@ -23,9 +15,6 @@ type Props = {
 };
 
 export const YachtInformation = ({ rent }: Props) => {
-  const dispatch = useAppDispatch();
-  const likedItems = useAppSelector(selectLikedItems);
-
   const { user } = useSelector(selectUserData);
   const { openDialog } = useDialog();
   // const [isLiked, setIsLiked] = useState(false);
@@ -42,27 +31,25 @@ export const YachtInformation = ({ rent }: Props) => {
     location,
   } = rent;
 
-  const [isLiked, setIsLiked] = useState(likedItems.includes(_id));
-  const handleLike = () => {
-    if (isLiked) {
-      dispatch(unlikeItem(_id));
-    } else {
-      dispatch(likeItem(_id));
-    }
-    setIsLiked(!isLiked);
-  };
-
-  // const sanitizedDescription = DOMPurify.sanitize(description);
-
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="flex flex-wrap">
         <div className="flex flex-col w-full lg:w-2/3 lg:pr-10">
-          <h2 className="text-2xl font-[Unna-BoldItalic] mb-6 text-secondary text-transparent: uppercase">
+          <h2 className="text-4xl font-[Unna-BoldItalic] pb-6 text-secondary text-transparent: uppercase">
             {name} YACHT CHARTER
           </h2>
-          <div className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]">
+          <div className="text-gray-600 text-md md:text-lg lg:text-xl xl:text-2xl leading-[200%]">
             {description}
+          </div>
+          <h2 className="text-gray-700 text-2xl font-[Unna-Bold] pt-6 pb-3">
+            Special Features
+          </h2>
+          <div className="text-gray-500 text-md md:text-lg lg:text-xl xl:text-2xl leading-[200%]">
+            This luxurious yacht is custom-built for world-class luxury yacht
+            chartering, offering a wealth of spacious living areas and fabulous
+            amenities, you'll be in for a treat from the moment you step on
+            board. Her features include a beauty salon, elevator, underwater
+            lights, beach club and gym.
           </div>
           {/* <div
             className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]"
@@ -124,19 +111,12 @@ export const YachtInformation = ({ rent }: Props) => {
           </div>
 
           <div className="p-4">
-            <div>
-              <h2 className="text-xl font-semibold mb-4">PRICE</h2>
-              <p className="text-2xl font-bold text-secondary mb-4">
+            <h2 className="text-xl font-semibold mb-4">PRICE</h2>
+            <div className="flex flex-row items-center justify-between mb-4">
+              <p className="text-2xl font-bold text-secondary">
                 {formatPrice(price)}
                 <span className="text-[20px]"> USD / Day</span>
               </p>
-              <button onClick={handleLike}>
-                <img
-                  src={isLiked ? HeartFilledRedImg : HeartEmptyImg}
-                  alt="heart"
-                  className="h-8"
-                />
-              </button>
             </div>
 
             <div className="w-full bg-secondary text-white py-3 rounded-md text-lg hover:bg-blue-500 transition duration-300">

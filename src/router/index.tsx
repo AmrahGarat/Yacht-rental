@@ -23,8 +23,9 @@ import MipcomEvent from "@/pages/(business)/events/components/corporateevents/ev
 import AbuDhabiGrandPrixEvent from "@/pages/(business)/events/components/sportevents/eventpage/AbuDhabiGrandPrixEvent";
 import ErrorPage from "@/components/shared/ErrorPage";
 import MonacoEPrixEvent from "@/pages/(business)/events/components/sportevents/eventpage/MonacoEPrixEvent";
-import { LikesPage } from "@/pages/(business)/likes";
+import { FavoritesPage } from "@/pages/(business)/favorites";
 import AdminProfile from "@/pages/(dashboard)/profile";
+import ResetPassword from "@/pages/(business)/resetpassword";
 
 const EventsPage = lazy(() => import("@/pages/(business)/events/index"));
 const ArtBaselMiamiEvent = lazy(
@@ -62,8 +63,12 @@ export const router = createBrowserRouter([
         element: <FAQPage />,
       },
       {
-        path: paths.LIKES,
-        element: <LikesPage />,
+        path: paths.FAVORITES,
+        element: <FavoritesPage />,
+      },
+      {
+        path: paths.RESET_PASSWORD,
+        element: <ResetPassword />,
       },
       {
         path: paths.ADMINPROFILE,

@@ -65,6 +65,8 @@ export const LoginDialog = () => {
     return null;
   }
 
+  console.log(isOpen, type);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     mutate(values);
   }
@@ -121,6 +123,22 @@ export const LoginDialog = () => {
             </Button>
           </form>
         </Form>
+        <DialogDescription>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log("click");
+
+              openDialog(ModalTypeEnum.FORGOT_PASSWORD);
+            }}
+            className="w-full text-blue-700 dark:text-blue-400 underline"
+            // variant="link"
+          >
+            Forgot Password?
+          </button>
+        </DialogDescription>
       </DialogContent>
     </Dialog>
   );

@@ -2,9 +2,11 @@ import SearchIcon from "@/assets/icons/search.svg";
 import FilterIcon from "@/assets/icons/filter.svg";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { paths } from "@/constants/paths";
+import { useTranslation } from "react-i18next";
 
 let timeoutId: NodeJS.Timeout;
 export const Search = () => {
+  const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,7 +28,7 @@ export const Search = () => {
   }
 
   return (
-    <div className="relative hidden md:block lg:w-[320px] xl:w-[500px]">
+    <div className="relative  lg:w-[320px] xl:w-[500px]">
       <img
         src={SearchIcon}
         alt="searchicon"
@@ -34,7 +36,7 @@ export const Search = () => {
       />
       <input
         onChange={(e) => handleSearch(e.target.value.trim())}
-        placeholder="Navigate to your dream yacht experience..."
+        placeholder={t("search.placeholder")}
         className="w-full border-[1px] border-blue-400 rounded-[70px] py-3 pl-12 lg:pl-16 pr-11 placeholder:text-secondary text-lg font-medium leading-[20px] tracking-[-0.3px]"
       />
       <img

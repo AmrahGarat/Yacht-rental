@@ -60,9 +60,9 @@ const HomePage = () => {
       {scrollY > 300 && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-5 right-20 p-3 bg-blue-500 text-white rounded-full shadow-lg transition hover:bg-blue-600"
+          className="fixed bottom-5 right-20 p-2 sm:p-3 bg-blue-500 text-white rounded-full shadow-lg transition hover:bg-blue-600 z-50"
         >
-          <CircleFadingArrowUp size={20} />
+          <CircleFadingArrowUp size={15} />
         </button>
       )}
     </div>

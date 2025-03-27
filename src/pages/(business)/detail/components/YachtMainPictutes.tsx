@@ -24,7 +24,7 @@ export const YachtMainPictures = ({ images }: Props) => {
             spaceBetween={10}
             slidesPerView={1}
             pagination={{ clickable: true }}
-            className="w-full"
+            className="w-full rounded-xl"
             modules={[Navigation, Zoom, Autoplay]}
             loop
             navigation

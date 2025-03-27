@@ -11,7 +11,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="bg-gray-200 text-secondary pt-4 pb-4">
+    <footer className="bg-white text-secondary pt-6 pb-6">
       <div className="w-full px-1 grid grid-cols-1 md:grid-cols-2 gap-2 container">
         <div className="max-w-[600px]">
           <h2 className="text-xl font-bold mb-2">
@@ -25,7 +25,7 @@ const Footer = () => {
           </p>
           <button
             onClick={navigateToList}
-            className="bg-orange-500 text-white px-6 py-2 rounded-full font-semibold"
+            className="bg-secondary text-white px-6 py-2 rounded-full font-semibold"
           >
             Plan My Charter
           </button>
@@ -71,35 +71,20 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col items-center">
-            <h3 className="font-bold mb-4">Featured Charter Yachts</h3>
+            <h3 className="font-bold mb-4">Featured Yachts</h3>
             <ul className="space-y-2 text-sm">
-              <li>&gt; Maltese Falcon Yacht Charter</li>
-              <li>&gt; Wheels Yacht Charter</li>
-              <li>&gt; Victorious Yacht Charter</li>
-              <li>&gt; Andrea Yacht Charter</li>
-              <li>&gt; Titania Yacht Charter</li>
-              <li>&gt; Ahpo Yacht Charter</li>
+              <li>&gt; Whisper</li>
+              <li>&gt; Project X</li>
+              <li>&gt; Flying Fox</li>
+              <li>&gt; Lady S</li>
+              <li>&gt; Sea Eagle</li>
+              <li>&gt; Dream</li>
             </ul>
           </div>
         </div>
-
-        <div className="flex items-center justify-end">
-          <h3 className="font-bold">
-            Receive our latest offers direct to your inbox.
-          </h3>
-        </div>
-
-        <div>
-          <button
-            onClick={() => openDialog(ModalTypeEnum.REGISTER)}
-            className="bg-blue-600 text-white px-6 py-3 w-[150px] rounded-full font-semibold"
-          >
-            Sign Up
-          </button>
-        </div>
       </div>
 
-      <div className="text-center text-sm text-secondary mt-2 border-t border-gray-500 pt-2">
+      {/* <div className="text-center text-sm text-secondary mt-2 border-t border-gray-500 pt-2">
         <p className="mt-2">
           All logos, trademarks, and copyrights contained on this website are
           the property of their respective owners.
@@ -112,7 +97,7 @@ const Footer = () => {
             Privacy & Cookies
           </a>
         </div>
-      </div>
+      </div> */}
     </footer>
   );
 };
