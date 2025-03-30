@@ -26,6 +26,7 @@ import MonacoEPrixEvent from "@/pages/(business)/events/components/sportevents/e
 import { FavoritesPage } from "@/pages/(business)/favorites";
 import AdminProfile from "@/pages/(dashboard)/profile";
 import ResetPassword from "@/pages/(business)/resetpassword";
+import UserProfile from "@/pages/(business)/userprofile";
 
 const EventsPage = lazy(() => import("@/pages/(business)/events/index"));
 const ArtBaselMiamiEvent = lazy(
@@ -73,6 +74,10 @@ export const router = createBrowserRouter([
       {
         path: paths.ADMINPROFILE,
         element: <AdminProfile {...adminData} />,
+      },
+      {
+        path: paths.PROFILE,
+        element: <UserProfile />,
       },
       {
         path: paths.EVENTS.MAIN,

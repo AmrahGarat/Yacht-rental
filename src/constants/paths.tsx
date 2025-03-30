@@ -8,6 +8,7 @@ export const paths = {
   RESERVATIONS: "/reservations",
   QUESTIONS: "/faq",
   ADMINPROFILE: "/admin-profile",
+  PROFILE: "/profile",
   EVENTS: {
     MAIN: "/events",
     ARTBASEL: "/events/art-basel-miami-2025",

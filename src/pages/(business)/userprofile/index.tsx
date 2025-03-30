@@ -10,15 +10,18 @@ import {
   Clock,
 } from "lucide-react";
 import ShipGame from "@/components/shipgame";
+import { useAppSelector } from "@/hooks/redux";
+import { selectUserData } from "@/store/features/userSlice";
+import { Spinner } from "@/components/shared/Spinner";
 
-type AdminProfileProps = {
-  name: string;
-  email: string;
-  role: string;
-};
+// type UserProfileProps = {
+//   name: string;
+//   surname: string;
+//   email: string;
+//   role?: string;
+// };
 
-const AdminProfile = ({ name, email, role }: AdminProfileProps) => {
-  // Load profile picture from localStorage if it exists
+const UserProfile = () => {
   const [profilePicture, setProfilePicture] = useState<string | null>(() => {
     const savedPic = localStorage.getItem("profilePicture");
     return savedPic ? savedPic : null;
@@ -32,20 +35,25 @@ const AdminProfile = ({ name, email, role }: AdminProfileProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Get the current time and format it
     const currentTime = new Date().toLocaleString();
     setLastLogin(currentTime);
 
-    // Simulate fetching notifications
     setNotifications([
-      { id: 1, message: "New reservation received", read: false },
-      { id: 2, message: "System update available", read: true },
-      { id: 3, message: "5 new reviews pending approval", read: false },
+      { id: 1, message: "Welcome to your profile!", read: false },
+      { id: 2, message: "Complete your profile setup", read: true },
+      { id: 3, message: "Explore our new features", read: false },
     ]);
   }, []);
 
+  const { user, loading } = useAppSelector(selectUserData);
+
+  if (loading) {
+    return <Spinner />;
+  }
+  console.log(user);
+
   const handleEditProfile = () => {
-    navigate("/admin/edit-profile");
+    navigate("/user/edit-profile");
   };
 
   const handleProfilePictureChange = (
@@ -57,7 +65,6 @@ const AdminProfile = ({ name, email, role }: AdminProfileProps) => {
       reader.onloadend = () => {
         const pictureData = reader.result as string;
         setProfilePicture(pictureData);
-        // Save to localStorage
         localStorage.setItem("profilePicture", pictureData);
       };
       reader.readAsDataURL(file);
@@ -79,7 +86,6 @@ const AdminProfile = ({ name, email, role }: AdminProfileProps) => {
 
   return (
     <div className="container mx-auto p-4 md:p-6 space-y-6">
-      {/* Header and Profile Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Profile Card */}
         <div className="bg-white shadow-xl rounded-xl p-6 flex flex-col items-center space-y-4 lg:col-span-1">
@@ -109,11 +115,13 @@ const AdminProfile = ({ name, email, role }: AdminProfileProps) => {
           </div>
 
           <div className="text-center space-y-2">
-            <h2 className="text-2xl font-bold text-gray-900">{name}</h2>
+            <h2 className="text-2xl font-bold text-gray-900">
+              {user?.name} {user?.surname}
+            </h2>
             <p className="text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full text-sm font-medium">
-              {role}
+              {user?.role}
             </p>
-            <p className="text-gray-600">{email}</p>
+            <p className="text-gray-600">{user?.email}</p>
           </div>
 
           <div className="w-full space-y-3">
@@ -147,26 +155,26 @@ const AdminProfile = ({ name, email, role }: AdminProfileProps) => {
         <div className="bg-white shadow-xl rounded-xl p-6 lg:col-span-2">
           <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
             <BarChart2 className="w-5 h-5 text-indigo-600" />
-            Analytics Overview
+            User Statistics
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               {
-                title: "Total Reservations",
-                value: "150",
-                change: "+12%",
+                title: "Total Orders",
+                value: "15",
+                change: "+2%",
                 positive: true,
               },
               {
-                title: "Total Revenue",
-                value: "$75,000",
-                change: "+8%",
+                title: "Total Spent",
+                value: "$1,250",
+                change: "+15%",
                 positive: true,
               },
               {
-                title: "Customer Reviews",
-                value: "320",
-                change: "-3%",
+                title: "Wishlist Items",
+                value: "8",
+                change: "-1",
                 positive: false,
               },
             ].map((stat, index) => (
@@ -190,14 +198,12 @@ const AdminProfile = ({ name, email, role }: AdminProfileProps) => {
         </div>
       </div>
 
-      {/* Game Section */}
       {showGame && (
         <div className="bg-white shadow-xl rounded-xl p-6">
           <ShipGame />
         </div>
       )}
 
-      {/* Activity and Notifications Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Activity Log */}
         <div className="bg-white shadow-xl rounded-xl p-6">
@@ -211,7 +217,7 @@ const AdminProfile = ({ name, email, role }: AdminProfileProps) => {
                 <Clock className="w-4 h-4 text-indigo-600" />
               </div>
               <div>
-                <p className="font-medium">Logged in</p>
+                <p className="font-medium">Account created</p>
                 <p className="text-sm text-gray-500">{lastLogin}</p>
               </div>
             </li>
@@ -220,8 +226,8 @@ const AdminProfile = ({ name, email, role }: AdminProfileProps) => {
                 <Activity className="w-4 h-4 text-green-600" />
               </div>
               <div>
-                <p className="font-medium">System check</p>
-                <p className="text-sm text-gray-500">All systems operational</p>
+                <p className="font-medium">Profile completed</p>
+                <p className="text-sm text-gray-500">50% complete</p>
               </div>
             </li>
           </ul>
@@ -261,22 +267,8 @@ const AdminProfile = ({ name, email, role }: AdminProfileProps) => {
           )}
         </div>
       </div>
-
-      {/* System Status */}
-      <div className="bg-white shadow-xl rounded-xl p-6">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">System Status</h3>
-        <div className="flex items-center gap-4">
-          <div className="h-3 w-3 bg-green-500 rounded-full"></div>
-          <div>
-            <p className="font-medium">All systems operational</p>
-            <p className="text-sm text-gray-500">
-              Last checked: {new Date().toLocaleTimeString()}
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
 
-export default AdminProfile;
+export default UserProfile;

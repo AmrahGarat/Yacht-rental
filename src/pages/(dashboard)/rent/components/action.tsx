@@ -86,6 +86,7 @@ const getFormSchema = (isEdit: boolean) =>
               message: "File size should not exceed 5MB",
             }
           ),
+    amenities: z.array(z.string()).optional(), // Array of amenity IDs
   });
 
 type Props = {
@@ -153,6 +154,7 @@ const ActionForm = ({ type }: Props) => {
       cabins: 0,
       showInFeatured: false,
       images: [],
+      amenities: [],
     },
   });
 

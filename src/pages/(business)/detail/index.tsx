@@ -62,7 +62,7 @@ const RentDetailPage = () => {
     <div>
       <YachtMainPictutes images={rent.images} />
       <YachtInformation rent={rent} />
-      <YachtOtherPictures />
+      <YachtOtherPictures images={rent.images} />
       <YachtAmenities />
       <ReviewsSection reviews={rent.reviews} />
       <FeaturedYachts isLoading={featuredLoading} rents={featuredRents} />

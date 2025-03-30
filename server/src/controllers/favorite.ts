@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Favorite from "../mongoose/schemas/favorite";
+import { Rent } from "../types/schema";
 
 // Favorilere ekle
 export const addToFavorites = async (req: Request, res: Response) => {
@@ -52,6 +53,12 @@ export const getFavorites = async (req: Request, res: Response) => {
 
   try {
     const favorites = await Favorite.find({ user: userId }).populate("rent");
+    favorites.map(
+      (favorite) =>
+        ((favorite.rent as unknown as Rent).images = (
+          favorite.rent as unknown as Rent
+        ).images.map((image) => `${process.env.BASE_URL}/public/rent/${image}`))
+    );
     res.status(200).json(favorites);
   } catch (error) {
     console.error("Get favorites error:", error);

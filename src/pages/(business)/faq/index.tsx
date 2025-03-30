@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Scroll } from "lucide-react";
+import { ScrollToTop } from "@/components/shared/ScrollToTop";
 
 const faqs = [
   {
@@ -109,6 +110,7 @@ const FAQPage = () => {
           </div>
         ))}
       </div>
+      <ScrollToTop />
     </div>
   );
 };

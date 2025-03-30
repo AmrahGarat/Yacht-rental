@@ -123,6 +123,16 @@ export const LoginDialog = () => {
             </Button>
           </form>
         </Form>
+        <Button
+          type="button"
+          onClick={() =>
+            (window.location.href = "http://localhost:3000/auth/google")
+          }
+          className="w-full"
+          disabled={isPending}
+        >
+          Google Log in
+        </Button>
         <DialogDescription>
           <button
             type="button"

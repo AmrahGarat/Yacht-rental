@@ -89,9 +89,16 @@ export const NavbarActions = () => {
                 </DropdownMenuItem>
               )}
 
-              <DropdownMenuItem>
-                <Link to={paths.ADMINPROFILE}>Profile</Link>
-              </DropdownMenuItem>
+              {user.role === UserRole.Admin ? (
+                <DropdownMenuItem>
+                  <Link to={paths.ADMINPROFILE}>Profile</Link>
+                </DropdownMenuItem>
+              ) : (
+                <DropdownMenuItem>
+                  <Link to={paths.PROFILE}>Profile</Link>
+                </DropdownMenuItem>
+              )}
+
               <DropdownMenuItem>
                 <Link to="/reservations">Reservations</Link>
               </DropdownMenuItem>

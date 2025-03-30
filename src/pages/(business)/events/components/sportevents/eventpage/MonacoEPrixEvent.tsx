@@ -39,23 +39,25 @@ const MonacoEPrixEvent = () => {
           alt="Art Basel Miami"
           className="w-full h-full object-cover"
         />
-        <div className="flex gap-6">
-          <div className="w-[70%]">
-            <h1 className="text-[45px] font-[Unna-Bold] pt-6 text-secondary">
+        <div className="flex flex-col md:flex-row gap-6">
+          <div className="w-full md:w-[70%]">
+            <h1 className="text-[35px] md:text-[45px] font-[Unna-Bold] pt-6 text-secondary">
               Monaco E-Prix 2025
             </h1>
-            <h3 className="text-[25px] font-[Unna-Bold] text-gray-500">
+            <h3 className="text-[20px] md:text-[25px] font-[Unna-Bold] text-gray-500">
               Monte Carlo, Monaco
             </h3>
             <div className="flex gap-2 items-center">
               <img src={CalendarIcon} alt="yacht-size" className="w-5" />
-              <p className="text-[20px] text-gray-500">3 - 4 May 2025</p>
+              <p className="text-[15px] md:text-[20px] text-gray-500">
+                3 - 4 May 2025
+              </p>
             </div>
-            <p className="pt-4 text-[25px] text-gray-400 leading-8">
+            <p className="pt-4 text-[20px] md:text-[25px] text-gray-400 leading-8">
               Monaco prepares for another exciting race as the Monaco E-Prix
               brings an electric atmosphere to Monte Carlo.
             </p>
-            <p className="pt-4 text-[20px] text-gray-800 leading-6">
+            <p className="pt-4 text-[15px] md:text-[20px] text-gray-800 leading-6">
               Now embarking on its eighth edition, the Monaco E-Prix returns
               once again to own the streets of Monte Carlo, showing that
               electricity really can rule the track.
@@ -67,7 +69,7 @@ const MonacoEPrixEvent = () => {
               tight bends and lack of run-off areas.
             </p>
             <img src={MonacoE1Img} alt="Art Basel Miami" className="py-6" />
-            <p className="pt-4 text-[20px] text-gray-800 leading-6">
+            <p className="pt-4 text-[15px] md:text-[20px] text-gray-800 leading-6">
               Using the full Circuit de Monaco track in its entirety since 2021,
               the E-Prix has rapidly grown in popularity and has proved an
               exciting addition to Monaco luxury charters. <br />
@@ -78,7 +80,7 @@ const MonacoEPrixEvent = () => {
               a great networking opportunity for corporate charters.
             </p>
             <img src={MonacoE2Img} alt="Art Basel Miami" className="py-6" />
-            <p className="pt-4 text-[20px] text-gray-800 leading-6">
+            <p className="pt-4 text-[15px] md:text-[20px] text-gray-800 leading-6">
               Even with the high-speed action on the track, the Monaco E-Prix
               keeps on delivering with side attractions including the pop-up
               Allianz Village. <br />
@@ -98,11 +100,11 @@ const MonacoEPrixEvent = () => {
               is the perfect way to mingle with other racing enthusiasts within
               the charter lifestyle.
             </p>
-            <h2 className="pt-10 text-secondary font-[Unna-Bold] text-[25px] leading-8">
+            <h2 className="pt-10 text-secondary font-[Unna-Bold] text-[20px] md:text-[25px] leading-8">
               Chartering Monaco
             </h2>
             <img src={MonacoE3Img} alt="Art Basel Miami" className="py-6" />
-            <p className="py-4 text-[20px] text-gray-800 leading-6">
+            <p className="py-4 text-[15px] md:text-[20px] text-gray-800 leading-6">
               Taking a luxury yacht charter around Monaco and the South of
               France can be a truly memorable experience. With stunning displays
               of historical significance and cosmopolitan highlights, there
@@ -120,9 +122,9 @@ const MonacoEPrixEvent = () => {
               preferred yacht charter broker today.
             </p>
             <div className="bg-gray-300 px-9 py-12 flex gap-5 rounded-md">
-              <img src={InfoIcon} alt="yacht-size" className="w-28" />
+              <img src={InfoIcon} alt="yacht-size" className="w-14 md:w-28" />
               <div>
-                <p className="text-[35px] text-black font-[Unna-Bold] pb-4">
+                <p className="text-[15px] md:text-[35px] text-black font-[Unna-Bold] pb-4">
                   View yachts available for charter in Monaco
                 </p>
                 <button
@@ -136,8 +138,8 @@ const MonacoEPrixEvent = () => {
               </div>
             </div>
           </div>
-          <div className="w-[30%] flex flex-col gap-6 pt-20 sticky top-[80px] self-start">
-            <h2 className="text-[25px] font-[Unna-Bold] text-secondary flex justify-center">
+          <div className="w-full md:w-[30%] flex flex-col gap-6 pt-20 sticky top-[80px] self-start">
+            <h2 className="text-[20px] md:text-[25px] font-[Unna-Bold] text-secondary flex justify-center">
               UPCOMING CORPORATE EVENTS
             </h2>
             <div className="bg-gray-200 flex flex-col gap-5 p-5">

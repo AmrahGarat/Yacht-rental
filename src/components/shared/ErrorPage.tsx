@@ -12,12 +12,12 @@ const ErrorPage: React.FC = () => {
         }}
       ></div>
       <div className="absolute bottom-0 w-full text-center py-3">
-        <p className="text-7xl font-[Unna-Bold] text-red-900 pb-3">
+        <p className="text-7xl font-[Unna-Bold] text-secondary pb-3">
           This Page was Lost at Sea
         </p>
         <button
           onClick={HomePage}
-          className="bg-red-900 px-6 py-2 rounded-full font-semibold text-xl text-orange-300"
+          className="bg-secondary px-6 py-2 rounded-full font-semibold text-xl text-orange-300"
         >
           Go back to Homepage
         </button>

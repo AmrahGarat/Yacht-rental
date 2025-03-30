@@ -39,7 +39,8 @@ import { RenderIf } from "@/components/shared/RenderIf";
 import { paths } from "@/constants/paths";
 import { toast } from "sonner";
 
-const FormSchema = z.object({
+// At the top of your Steps.tsx file, add this export
+export const FormSchema = z.object({
   name: z.string().min(2, {
     message: "Name must contain at least 2 letters.",
   }),
@@ -58,7 +59,6 @@ const FormSchema = z.object({
   pickUpDate: z.string().min(1, {
     message: "Pick up date is required",
   }),
-
   dropOffDate: z.string().min(1, {
     message: "Drop off date is required",
   }),
@@ -67,6 +67,8 @@ const FormSchema = z.object({
     message: "You must agree to terms and conditions",
   }),
 });
+
+// The rest of your existing Steps component code...
 
 type FormType = UseFormReturn<z.infer<typeof FormSchema>>;
 

@@ -35,13 +35,13 @@ export const YachtInformation = ({ rent }: Props) => {
     <div className="container mx-auto px-4 py-12">
       <div className="flex flex-wrap">
         <div className="flex flex-col w-full lg:w-2/3 lg:pr-10">
-          <h2 className="text-4xl font-[Unna-BoldItalic] pb-6 text-secondary text-transparent: uppercase">
+          <h2 className="text-2xl md:text-4xl font-[Unna-BoldItalic] pb-6 text-secondary text-transparent: uppercase">
             {name} YACHT CHARTER
           </h2>
-          <div className="text-gray-600 text-md md:text-lg lg:text-xl xl:text-2xl leading-[200%]">
+          <div className="text-gray-600 text-sm md:text-md md:text-lg lg:text-xl xl:text-2xl leading-[200%]">
             {description}
           </div>
-          <h2 className="text-gray-700 text-2xl font-[Unna-Bold] pt-6 pb-3">
+          <h2 className="text-gray-700 text-xl md:text-2xl font-[Unna-Bold] pt-6 pb-3">
             Special Features
           </h2>
           <div className="text-gray-500 text-md md:text-lg lg:text-xl xl:text-2xl leading-[200%]">
@@ -71,12 +71,12 @@ export const YachtInformation = ({ rent }: Props) => {
           </div> */}
 
           <div className="p-4 border-b-2 border-secondary">
-            <h2 className="text-xl font-semibold mb-4 text-secondary">
+            <h2 className="text-lg md:text-xl font-semibold mb-4 text-secondary">
               SPECIFICATIONS
             </h2>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-3 items-start text-black">
-                <ul className="flex flex-col gap-4">
+                <ul className="flex flex-col gap-4 text-[13px] md:text-[15px]">
                   <li>CITY</li>
                   <li>CATEGORY</li>
                   <li>LENGTH</li>
@@ -94,28 +94,32 @@ export const YachtInformation = ({ rent }: Props) => {
               <div className="flex flex-col gap-3 text-black text-right">
                 <p>{location.name}</p>
                 <p>{category.name}</p>
-                <p className="text-[18px]">
-                  <span className="text-[20px]">{size}</span> meters
+                <p className="text-[12px] md:text-[18px]">
+                  <span className="text-[12px] md:text-[18px]">{size}</span>{" "}
+                  meters
                 </p>
                 <p>
-                  Up to <span className="text-[20px]">{capacity}</span>
+                  Up to{" "}
+                  <span className="text-[12px] md:text-[18px]">{capacity}</span>
                 </p>
                 <p>
-                  <span className="text-[20px]">{cabins}</span> bedrooms
+                  <span className="text-[12px] md:text-[18px]">{cabins}</span>{" "}
+                  bedrooms
                 </p>
                 <p>
-                  <span className="text-[20px]">{crew}</span> members
+                  <span className="text-[12px] md:text-[18px]">{crew}</span>{" "}
+                  members
                 </p>
               </div>
             </div>
           </div>
 
           <div className="p-4">
-            <h2 className="text-xl font-semibold mb-4">PRICE</h2>
+            <h2 className="text-lg md:text-xl font-semibold mb-4">PRICE</h2>
             <div className="flex flex-row items-center justify-between mb-4">
-              <p className="text-2xl font-bold text-secondary">
+              <p className="text-xl md:text-2xl font-bold text-secondary">
                 {formatPrice(price)}
-                <span className="text-[20px]"> USD / Day</span>
+                <span className="text-[15px] md:text-[20px]"> USD / Day</span>
               </p>
             </div>
 

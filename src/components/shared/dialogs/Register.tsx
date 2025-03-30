@@ -24,6 +24,7 @@ import authService from "@/services/auth";
 import { AxiosError } from "axios";
 import { AuthResponseType } from "@/services/auth/types";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z
   .object({
@@ -45,6 +46,7 @@ const formSchema = z
 
 export const RegisterDialog = () => {
   const { isOpen, closeDialog, type, openDialog } = useDialog();
+  const navigate = useNavigate(); // Add this line
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,13 +61,21 @@ export const RegisterDialog = () => {
     mutationFn: authService.register,
     onSuccess: (response) => {
       toast.success(response.data.message);
-      openDialog(ModalTypeEnum.LOGIN);
+      // Store user data in localStorage or context
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          name: form.getValues("name"),
+          surname: form.getValues("surname"),
+          email: form.getValues("email"),
+        })
+      );
+      // Redirect to user profile
+      navigate("/profile");
+      closeDialog();
     },
     onError: (error: AxiosError<AuthResponseType>) => {
-      console.log(error.response?.data?.message);
-      const message =
-        error.response?.data?.message ??
-        "Something went wrong! Please try again";
+      const message = error.response?.data?.message ?? "Something went wrong!";
       toast.error(message);
     },
   });
@@ -175,6 +185,16 @@ export const RegisterDialog = () => {
             </Button>
           </form>
         </Form>
+        <Button
+          type="button"
+          onClick={() =>
+            (window.location.href = "http://localhost:3000/auth/google")
+          }
+          className="w-full"
+          disabled={isPending}
+        >
+          Google Register
+        </Button>
       </DialogContent>
     </Dialog>
   );

@@ -5,6 +5,7 @@ import User from "../mongoose/schemas/user";
 import { IUser } from "../types/user";
 import { transporter } from "../utils/mail";
 import crypto from "crypto";
+import Favorite from "../mongoose/schemas/favorite";
 
 const login = (req: Request, res: Response) => {
   res.json({
@@ -58,7 +59,7 @@ const logout = (req: Request, res: Response) => {
   });
 };
 
-const currentUser = (req: Request, res: Response) => {
+const currentUser = async (req: Request, res: Response) => {
   res.json({
     message: "Current user",
     user: req.user,

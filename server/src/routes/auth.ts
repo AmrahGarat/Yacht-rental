@@ -8,11 +8,22 @@ import {
 import validateSchema from "../middlewares/validator";
 import { authenticate, authorize } from "../middlewares/user";
 import authController from "../controllers/auth";
+import passport from "passport";
 
 const router = Router();
 
 router.post("/login", authenticate, authController.login);
-
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/" }),
+  (_req, res) => {
+    res.redirect("http://localhost:5173");
+  }
+);
 router.post(
   "/register",
   validateSchema(registerSchema),

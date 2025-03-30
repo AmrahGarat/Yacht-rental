@@ -9,6 +9,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { QUERY_KEYS } from "@/constants/query-keys";
+import dashboardService from "@/services/dashboard";
+import { Spinner } from "@/components/shared/Spinner";
 // import { Button } from "@/components/ui/button";
 
 const DashboardMainPage = () => {
@@ -88,16 +92,58 @@ const DashboardMainPage = () => {
     ]);
   }, []);
 
+  const { data, isLoading, isError } = useQuery({
+    queryKey: [QUERY_KEYS.DASHBOARD_COUNT],
+    queryFn: dashboardService.getDashboardData,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <div>Something went wrong</div>;
+  }
+
+  const statData = [
+    {
+      title: "Yachts",
+      value: data?.data.rentCount || 0,
+    },
+    {
+      title: "Approved Reservations",
+      value: data?.data.approvedReservationCount || 0,
+    },
+    {
+      title: "Pending Reservations",
+      value: data?.data.pendingReservationCount || 0,
+    },
+    {
+      title: "Users",
+      value: data?.data.userCount || 0,
+    },
+    {
+      title: "Total Revenue",
+      value: data?.data.totalRevenue || 0,
+    },
+  ];
+
   return (
     <div className="p-6 space-y-6">
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-        {Object.entries(stats).map(([key, value]) => (
+        {statData.map(({ title, value }, key) => (
           <Card key={key}>
-            <h3 className="text-xl font-semibold capitalize">
-              {key.replace(/([A-Z])/g, " $1").trim()}
-            </h3>
-            <p className="text-2xl font-bold">{value}</p>
+            <h3 className="text-xl font-semibold capitalize">{title}</h3>
+            <p className="text-2xl font-bold">
+              {title === "Total Revenue"
+                ? `$ ${value.toLocaleString()}`
+                : value}
+            </p>
           </Card>
         ))}
       </div>

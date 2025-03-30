@@ -83,10 +83,10 @@ export const FavoritesPage = () => {
       <ScrollToTop />
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-          Your Favorites
+          Your Favorite Yachts
         </h1>
         <p className="text-gray-600 dark:text-gray-400">
-          All your favorite products in one place.
+          All your favorite yachts in one place.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

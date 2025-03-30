@@ -38,24 +38,26 @@ const CannesFilmFestivalEvent = () => {
           alt="Art Basel Miami"
           className="w-full h-full object-cover"
         />
-        <div className="flex gap-6">
-          <div className="w-[70%]">
-            <h1 className="text-[45px] font-[Unna-Bold] pt-6 text-secondary">
+        <div className="flex flex-col md:flex-row gap-6">
+          <div className="w-full md:w-[70%]">
+            <h1 className="text-[35px] md:text-[45px] font-[Unna-Bold] pt-6 text-secondary">
               Cannes Film Festival 2025
             </h1>
-            <h3 className="text-[25px] font-[Unna-Bold] text-gray-500">
+            <h3 className="text-[20px] md:text-[25px] font-[Unna-Bold] text-gray-500">
               Cannes, France
             </h3>
             <div className="flex gap-2 items-center">
               <img src={CalendarIcon} alt="yacht-size" className="w-5" />
-              <p className="text-[20px] text-gray-500">13 - 24 May 2025</p>
+              <p className="text-[15px] md:text-[20px] text-gray-500">
+                13 - 24 May 2025
+              </p>
             </div>
-            <p className="pt-4 text-[25px] text-gray-400 leading-8">
+            <p className="pt-4 text-[20px] md:text-[25px] text-gray-400 leading-8">
               Cannes comes alive as the red carpet returns to make way for one
               of the biggest events in the film industry, the Cannes Film
               Festival.
             </p>
-            <p className="pt-4 text-[20px] text-gray-800 leading-6">
+            <p className="pt-4 text-[15px] md:text-[20px] text-gray-800 leading-6">
               Globally known for being one of the most glamorous events along
               the Cote d'Azur, the Cannes Film Festival celebrates its 78th
               edition this year, and is a must when chartering around the South
@@ -67,10 +69,10 @@ const CannesFilmFestivalEvent = () => {
               film premieres, red carpet glitz and of course the sought-after
               social events.
             </p>
-            <h2 className="pt-10 text-secondary font-[Unna-Bold] text-[25px] leading-8">
+            <h2 className="pt-10 text-secondary font-[Unna-Bold] text-[20px] md:text-[25px] leading-8">
               A glamorous social occasion
             </h2>
-            <p className="pt-4 text-[20px] text-gray-800 leading-6">
+            <p className="pt-4 text-[15px] md:text-[20px] text-gray-800 leading-6">
               Film enthusiasts and corporate charter groups alike will revel in
               the long list of perks that come with berthing in the picturesque
               Vieux Port adjacent to the venue of Palais des Festivals.
@@ -93,10 +95,10 @@ const CannesFilmFestivalEvent = () => {
               alt="Cannes Img 2"
               className="py-6"
             />
-            <h2 className="pt-10 text-secondary font-[Unna-Bold] text-[25px] leading-8">
+            <h2 className="pt-10 text-secondary font-[Unna-Bold] text-[20px] md:text-[25px] leading-8">
               Cannes charters during the Film Festival
             </h2>
-            <p className="pt-4 text-[20px] text-gray-800 leading-6">
+            <p className="pt-4 text-[15px] md:text-[20px] text-gray-800 leading-6">
               An ideal way to warm-up for the Mediterranean yacht charter
               season, the Cannes Film Festival is one of the first major events
               of the year in Cannes and annually attracts fleets of superyachts
@@ -119,9 +121,9 @@ const CannesFilmFestivalEvent = () => {
               className="py-6"
             />
             <div className="bg-gray-300 px-9 py-12 flex gap-5 rounded-md">
-              <img src={InfoIcon} alt="yacht-size" className="w-28" />
+              <img src={InfoIcon} alt="yacht-size" className="w-14 md:w-28" />
               <div>
-                <p className="text-[35px] text-black font-[Unna-Bold] pb-4">
+                <p className="text-[15px] md:text-[35px] text-black font-[Unna-Bold] pb-4">
                   View yachts available for charter in Cannes
                 </p>
                 <button
@@ -135,8 +137,8 @@ const CannesFilmFestivalEvent = () => {
               </div>
             </div>
           </div>
-          <div className="w-[30%] flex flex-col gap-6 pt-20 sticky top-[80px] self-start">
-            <h2 className="text-[25px] font-[Unna-Bold] text-secondary flex justify-center">
+          <div className="w-full md:w-[30%] flex flex-col gap-6 pt-20 sticky top-[80px] self-start">
+            <h2 className="text-[20px] md:text-[25px] font-[Unna-Bold] text-secondary flex justify-center">
               UPCOMING CORPORATE EVENTS
             </h2>
             <div className="bg-gray-200 flex flex-col gap-5 p-5">

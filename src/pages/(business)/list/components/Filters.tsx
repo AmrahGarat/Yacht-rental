@@ -288,7 +288,7 @@ export const Filters = ({ location }: FiltersProps) => {
           {/* Price Filter */}
           <MultiRangeSlider
             min={10000}
-            max={3000000}
+            max={600000}
             step={500}
             unit="$"
             onChange={handleRangeChange}

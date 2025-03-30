@@ -48,10 +48,10 @@ const InfoSection = () => {
     <section className="py-16 bg-gray-100">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Title */}
-        <h2 className="text-6xl font-[Unna-Bold] text-center text-secondary mb-6">
+        <h2 className="text-3xl md:text-6xl font-[Unna-Bold] text-center text-secondary mb-6">
           Yachting & Luxury Events
         </h2>
-        <p className="text-center text-gray-600 max-w-5xl mx-auto mb-10 text-xl">
+        <p className="text-center text-gray-600 max-w-5xl mx-auto mb-10 text-lg md:text-xl">
           Chartering a luxury yacht is the perfect way to enjoy unsurpassed
           entertainment at some of the planet's most prestigious events. Soak up
           the glamorous atmosphere of film festivals and iconic sporting
@@ -72,8 +72,8 @@ const InfoSection = () => {
             slidesPerView={1}
             loop
             effect="fade"
-            autoplay={{ delay: 4000 }}
-            speed={800}
+            autoplay={{ delay: 2000 }}
+            speed={1000}
             navigation={{
               prevEl: ".custom-prev",
               nextEl: ".custom-next",
@@ -85,22 +85,24 @@ const InfoSection = () => {
                 <div className="relative flex flex-row-reverse">
                   {/* Event Details */}
                   <div className="absolute inset-0 bg-blue-900 bg-opacity-50 flex flex-col justify-center p-6 text-white max-w-[500px] z-10">
-                    <h3 className="text-4xl font-bold">{event.title}</h3>
-                    <p className="mt-2 text-xl text-gray-300">
+                    <h3 className="text-2xl md:text-4xl font-bold">
+                      {event.title}
+                    </h3>
+                    <p className="mt-2 text-lg md:text-xl text-gray-300">
                       {event.location}
                     </p>
 
                     <div className="flex items-center mt-4 space-x-2 text-gray-300">
                       <Calendar size={18} />
-                      <span className="text-xl">{event.date}</span>
+                      <span className="text-lg md:text-xl">{event.date}</span>
                     </div>
 
-                    <p className="mt-4 text-xl text-gray-300">
+                    <p className="mt-4 text-lg md:text-xl text-gray-300">
                       {event.description}
                     </p>
 
                     <button className="mt-6 px-5 py-2 bg-white text-blue-900 font-bold rounded-full shadow-md hover:bg-gray-200">
-                      More
+                      More Info
                     </button>
                   </div>
 
