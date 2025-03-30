@@ -16,3 +16,12 @@ export type AuthResponseType = {
   message: string;
   user: User;
 };
+
+export type ForgotPasswordRequestPayloadType = {
+  email: string;
+};
+
+export type ResetPasswordRequestPayloadType = {
+  token: string;
+  password: string;
+};

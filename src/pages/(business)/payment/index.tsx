@@ -1,5 +1,5 @@
 import { Spinner } from "@/components/shared/Spinner";
-import Steps from "./components/Steps";
+import Steps, { FormSchema } from "./components/Steps"; // Correct import
 import PaymentSummary from "./components/Summary";
 import { Button } from "@/components/ui/button";
 import { Link, useParams } from "react-router-dom";
@@ -7,9 +7,12 @@ import { paths } from "@/constants/paths";
 import { QUERY_KEYS } from "@/constants/query-keys";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "@/services/rents";
+import { FormProvider, useForm } from "react-hook-form";
+import { z } from "zod";
 
 const PaymentPage = () => {
   const { id } = useParams<{ id: string }>();
+  const form = useForm<z.infer<typeof FormSchema>>();
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [QUERY_KEYS.RENT_DETAIL, id],
@@ -24,6 +27,7 @@ const PaymentPage = () => {
       </div>
     );
   }
+
   const rent = data?.data?.item;
 
   if (isError || !rent) {
@@ -40,10 +44,12 @@ const PaymentPage = () => {
   }
 
   return (
-    <div className="container py-6 lg:py-8 grid lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_500px] lg:gap-x-8 gap-y-8">
-      <Steps />
-      <PaymentSummary rent={rent} />
-    </div>
+    <FormProvider {...form}>
+      <div className="container py-6 lg:py-8 grid lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_500px] lg:gap-x-8 gap-y-8">
+        <Steps />
+        <PaymentSummary rent={rent} />
+      </div>
+    </FormProvider>
   );
 };
 

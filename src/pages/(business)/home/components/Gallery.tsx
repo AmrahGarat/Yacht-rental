@@ -6,39 +6,40 @@ import YachtGallery3 from "@/assets/images/yacht-gallery-3.avif";
 import YachtGallery4 from "@/assets/images/yacht-gallery-4.jpeg";
 import YachtGallery5 from "@/assets/images/yacht-gallery-5.avif";
 import InstagramLogo from "@/assets/images/instagram-logo-png_seeklogo-307581.png";
+import { useTranslation } from "react-i18next";
 
 export const Gallery = () => {
+  const { t } = useTranslation();
   return (
     <div className="bg-gray-200 bg-opacity-30">
-      <div className="container pt-[120px] pb-[120px]">
-        <div className="flex justify-between items-center flex-row pb-5">
-          <h3 className="text-[24px] md:text-[48px] font-[Unna-Italic] text-secondary leading-[140%] max-w-[500px]">
-            Sail through Our Fresh Gallery Updates
+      <div className="container py-[50px] lg:py-[120px]">
+        <div className="flex flex-col lg:flex-row justify-between items-center pb-5">
+          <h3 className="flex text-center md:text-left text-[30px] md:text-[48px] font-[Unna-Italic] text-secondary leading-[140%] max-w-[500px]">
+            {t("GALLERY.TITLE")}
           </h3>
           <Button variant={"link"} asChild>
             <Link
               to="https://www.instagram.com/yachtcharterfleet/"
-              className="text-secondary !md:text-[25px] flex sm:flex-row flex-col"
+              className="text-secondary !md:text-[25px] flex sm:flex-row flex-col pt-10 md:pt-0 pb-5 md:pb-0"
             >
-              Browse through
+              {t("GALLERY.INSTAGRAM")}
               <img
                 src={InstagramLogo}
                 alt="InstagramLogo"
                 className="w-[30px] md:w-[70px] bg-red-400 bg-opacity-30 rounded-[10px]"
               />
-              pictures
             </Link>
           </Button>
         </div>
-        <div className="grid lg:grid-cols-2 gap-4 mb-8">
-          <div className="bg-gray-300 h-[400px] rounded-[10px]">
+        <div className="grid lg:grid-cols-2 gap-4 mb-4 lg:mb-8">
+          <div className="bg-gray-300 h-[150px] sm:h-[400px] rounded-[10px]">
             <img
               src={YachtGallery1}
               alt="yacht gallery 1"
               className="w-full h-full object-cover rounded-[10px]"
             />
           </div>
-          <div className="bg-gray-300 h-[400px] rounded-[10px]">
+          <div className="bg-gray-300 h-[150px] sm:h-[400px] rounded-[10px]">
             <img
               src={YachtGallery5}
               alt="yacht gallery 5"
@@ -47,21 +48,21 @@ export const Gallery = () => {
           </div>
         </div>
         <div className="grid lg:grid-cols-3 gap-4">
-          <div className="bg-gray-300 h-[300px] rounded-[10px]">
+          <div className="bg-gray-300 h-[150px] sm:h-[300px] rounded-[10px]">
             <img
               src={YachtGallery4}
               alt="yacht gallery 4"
               className="w-full h-full object-cover rounded-[10px]"
             />
           </div>
-          <div className="bg-gray-300 h-[300px] rounded-[10px]">
+          <div className="bg-gray-300 h-[150px] sm:h-[300px] rounded-[10px]">
             <img
               src={YachtGallery2}
               alt="yacht gallery 2"
               className="w-full h-full object-cover rounded-[10px]"
             />
           </div>
-          <div className="bg-gray-300 h-[300px] rounded-[10px]">
+          <div className="bg-gray-300 h-[150px] sm:h-[300px] rounded-[10px]">
             <img
               src={YachtGallery3}
               alt="yacht gallery 3"

@@ -1,5 +1,4 @@
-import SearchWhite from "@/assets/icons/search-white.svg";
-
+// import SearchWhite from "@/assets/icons/search-white.svg";
 import { useRef } from "react";
 import { Swiper, SwiperSlide, SwiperRef } from "swiper/react";
 import { Navigation, Zoom, Autoplay } from "swiper/modules";
@@ -16,7 +15,7 @@ export const YachtMainPictures = ({ images }: Props) => {
     }
   }
   return (
-    <div className="relative w-full text-white">
+    <div className="relative container p-0 w-full text-white">
       <div className="flex w-full gap-[2px]">
         <div className="w-full">
           <Swiper
@@ -25,7 +24,7 @@ export const YachtMainPictures = ({ images }: Props) => {
             spaceBetween={10}
             slidesPerView={1}
             pagination={{ clickable: true }}
-            className="w-full"
+            className="w-full rounded-xl"
             modules={[Navigation, Zoom, Autoplay]}
             loop
             navigation
@@ -38,7 +37,7 @@ export const YachtMainPictures = ({ images }: Props) => {
                   <img
                     src={image}
                     alt="main yacht image"
-                    className="w-full max-h-[585px] object-cover"
+                    className="w-full max-h-[585px] object-cover rounded-xl"
                   />
                 </div>
               </SwiperSlide>

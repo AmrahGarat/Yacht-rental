@@ -14,6 +14,8 @@ import authRoutes from "./src/routes/auth";
 import rentRoutes from "./src/routes/rent";
 import reviewRoutes from "./src/routes/review";
 import conversationRoutes from "./src/routes/conversation";
+import favoriteRoutes from "./src/routes/favorite";
+import dashboardRoutes from "./src/routes/dashboard";
 
 import { connectSocket } from "./src/socket";
 import "./src/auth/local-strategy";
@@ -58,6 +60,8 @@ app.use("/rent", rentRoutes);
 app.use("/reservation", reservationRoutes);
 app.use("/review", reviewRoutes);
 app.use("/conversation", conversationRoutes);
+app.use("/favorite", favoriteRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
@@ -65,7 +69,11 @@ server.listen(PORT, () => {
 
 async function connecToDb() {
   await mongoose.connect(
-    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.is1uz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.is1uz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`,
+    {
+      connectTimeoutMS: 30000, // 30 sec
+      socketTimeoutMS: 45000, // 45 sec
+    }
   );
 }
 connecToDb()

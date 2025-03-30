@@ -48,7 +48,7 @@ export const CustomSelect = ({
         {/* Dropdown Trigger */}
         <div
           onClick={toggle}
-          className="flex justify-between cursor-pointer border border-gray-300 px-3 py-2 rounded-md bg-white text-secondary"
+          className="text-[18px] flex justify-between cursor-pointer border border-gray-300 px-3 py-2 rounded-md bg-white text-secondary tracking-[-0.24px]"
         >
           <p className="text-md text-secondary-300 font-medium tracking-[-0.24px]">
             {selectedOptionLabel || placeholder}

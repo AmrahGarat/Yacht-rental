@@ -1,20 +1,23 @@
+import { useSearchParams } from "react-router-dom"; // Already imported
+import { RentCard } from "@/components/shared/rent-card"; // Already imported
+import { Filters } from "./components/Filters"; // Already imported
 import InfiniteScroll from "react-infinite-scroll-component";
-import { RentCard } from "@/components/shared/rent-card";
-import { Filters } from "./components/Filters";
-import { AvailabilityFilter } from "@/components/shared/availability-filter";
-import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { QUERY_KEYS } from "@/constants/query-keys";
-import rentService from "@/services/rents";
-import { useSearchParams } from "react-router-dom";
-import { LIST_TAKE_COUNT } from "@/constants";
-import { useMemo } from "react";
-import { Rent } from "@/types";
-import { RenderIf } from "@/components/shared/RenderIf";
-import { ClipLoader } from "react-spinners";
+import rentService from "@/services/rents"; // Already imported
+import { QUERY_KEYS } from "@/constants/query-keys"; // Already imported
+import { LIST_TAKE_COUNT } from "@/constants"; // Already imported
+import { useEffect, useMemo, useState } from "react";
+import { Rent } from "@/types"; // Already imported
+import { RenderIf } from "@/components/shared/RenderIf"; // Already imported
+import { ClipLoader } from "react-spinners"; // Already imported
+import { ScrollToTop } from "@/components/shared/ScrollToTop";
 
 export const RentListPage = () => {
+  const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
+
+  const location = searchParams.get("location") || ""; // Get location filter from query parameters
+
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: [QUERY_KEYS.RENT_LIST, searchParams.toString()],
     queryFn: ({ pageParam }: { pageParam: number }) =>
@@ -23,7 +26,7 @@ export const RentListPage = () => {
           take: LIST_TAKE_COUNT,
           skip: pageParam,
         },
-        searchParams.toString()
+        searchParams.toString() // This sends the location query parameter to the API
       ),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
@@ -34,6 +37,16 @@ export const RentListPage = () => {
     },
   });
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isLoading) setLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isLoading]);
+
   const rents = useMemo(() => {
     if (!data) return [];
     return data.pages.reduce((prev: Rent[], page) => {
@@ -43,11 +56,9 @@ export const RentListPage = () => {
 
   return (
     <div className="grid xl:grid-cols-[360px,1fr]">
-      <ScrollToTop />
-      <Filters />
+      <Filters location={location} /> {/* Pass location to Filters component */}
       <div className="bg-white" />
       <div className="flex flex-col gap-y-6 lg:gap-y-8 pt-6 lg:pt-8 px-6 lg:px-8 pb-10">
-        {/* <AvailabilityFilter /> */}
         <InfiniteScroll
           dataLength={rents.length}
           next={fetchNextPage}
@@ -66,7 +77,7 @@ export const RentListPage = () => {
             </RenderIf>
           }
         >
-          <div className="grid  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-6 ">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-6 ">
             <RenderIf condition={isLoading}>
               {[...Array(LIST_TAKE_COUNT)].map((_, index) => (
                 <RentCard.Skeleton key={index} />
@@ -78,7 +89,10 @@ export const RentListPage = () => {
             ))}
           </div>
         </InfiniteScroll>
+        <ScrollToTop />
       </div>
     </div>
   );
 };
+
+export default RentListPage;

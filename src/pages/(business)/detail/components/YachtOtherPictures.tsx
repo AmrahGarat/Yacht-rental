@@ -1,30 +1,15 @@
 import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Zoom } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/zoom";
 
-import yachtPic1 from "@/assets/images/yacht-flying-fox.jpeg";
-import yachtPic2 from "@/assets/images/yacht-flying-fox.jpeg";
-import yachtPic3 from "@/assets/images/award1.png";
-import yachtPic4 from "@/assets/images/yacht-flying-fox.jpeg";
-import yachtPic5 from "@/assets/images/yacht-flying-fox.jpeg";
-import yachtPic6 from "@/assets/images/yacht-flying-fox.jpeg";
-import yachtPic7 from "@/assets/images/yacht-flying-fox.jpeg";
-import yachtPic8 from "@/assets/images/yacht-flying-fox.jpeg";
-import yachtPic9 from "@/assets/images/yacht-flying-fox.jpeg";
-import yachtPic10 from "@/assets/images/yacht-flying-fox.jpeg";
+type Props = {
+  images: string[];
+};
 
-export const YachtOtherPictures = () => {
-  const pictures = [
-    yachtPic1,
-    yachtPic2,
-    yachtPic3,
-    yachtPic4,
-    yachtPic5,
-    yachtPic6,
-    yachtPic7,
-    yachtPic8,
-    yachtPic9,
-    yachtPic10,
-  ];
-
+export const YachtOtherPictures = ({ images }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPictureIndex, setCurrentPictureIndex] = useState(0);
 
@@ -32,19 +17,23 @@ export const YachtOtherPictures = () => {
     setCurrentPictureIndex(index);
     setIsModalOpen(true);
   };
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
   const goToPrevious = () => {
     setCurrentPictureIndex((prevIndex) =>
-      prevIndex === 0 ? pictures.length - 1 : prevIndex - 1
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
+
   const goToNext = () => {
     setCurrentPictureIndex((prevIndex) =>
-      prevIndex === pictures.length - 1 ? 0 : prevIndex + 1
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
+
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       closeModal();
@@ -57,60 +46,91 @@ export const YachtOtherPictures = () => {
         <h2 className="text-2xl font-[Unna-BoldItalic] mb-6 text-secondary">
           PICTURES
         </h2>
-        <div className="flex flex-wrap gap-8 justify-center">
-          {pictures.slice(0, 5).map((pic, index) => (
+
+        {/* Grid Layout for Pictures */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {images.slice(0, 8).map((image, index) => (
             <div
               key={index}
-              className="cursor-pointer w-72 sm:w-80 md:w-88 lg:w-96 xl:w-104"
+              className="cursor-pointer aspect-square overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
               onClick={() => openModal(index)}
             >
               <img
-                src={pic}
-                alt={`Yacht Picture ${index + 1}`}
-                className="w-full h-auto object-cover rounded-md shadow-md"
+                src={image}
+                alt={`Yacht picture ${index + 1}`}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
           ))}
         </div>
-        <div className="text-center mt-6">
-          <button
-            onClick={() => openModal(0)}
-            className="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-500 transition duration-300"
-          >
-            View All Pictures
-          </button>
-        </div>
+
+        {images.length > 8 && (
+          <div className="text-center mt-6">
+            <button
+              onClick={() => openModal(0)}
+              className="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition duration-300"
+            >
+              View All Pictures ({images.length})
+            </button>
+          </div>
+        )}
+
+        {/* Modal for Fullscreen View */}
         {isModalOpen && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+            className="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center z-50 p-4"
             onClick={handleBackdropClick}
           >
-            <div className="relative bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full sm:max-w-5xl lg:max-w-6xl">
-              <button
-                className="absolute top-2 right-2 text-2xl font-bold text-gray-500"
-                onClick={closeModal}
+            <button
+              className="absolute top-4 right-4 text-white text-4xl z-50"
+              onClick={closeModal}
+            >
+              &times;
+            </button>
+
+            <div className="relative w-full max-w-6xl">
+              <Swiper
+                initialSlide={currentPictureIndex}
+                modules={[Navigation, Zoom]}
+                navigation
+                zoom
+                spaceBetween={20}
+                slidesPerView={1}
+                className="w-full"
+                onSlideChange={(swiper) =>
+                  setCurrentPictureIndex(swiper.activeIndex)
+                }
               >
-                &times;
-              </button>
-              <div className="relative">
-                <img
-                  src={pictures[currentPictureIndex]}
-                  alt={`Yacht Picture ${currentPictureIndex + 1}`}
-                  className="w-full h-auto max-h-[650px] object-contain rounded-md"
-                />
+                {images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="swiper-zoom-container">
+                      <img
+                        src={image}
+                        alt={`Yacht picture ${index + 1}`}
+                        className="w-full max-h-[80vh] object-contain"
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+
+              <div className="flex justify-between mt-4">
+                {/* <button
+                  onClick={goToPrevious}
+                  className="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md"
+                >
+                  Previous
+                </button> */}
+                <span className="text-white">
+                  {currentPictureIndex + 1} / {images.length}
+                </span>
+                {/* <button
+                  onClick={goToNext}
+                  className="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md"
+                >
+                  Next
+                </button> */}
               </div>
-              <button
-                onClick={goToPrevious}
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-6 rounded-full text-5xl shadow-lg hover:bg-blue-500 transition duration-300"
-              >
-                &#8249;
-              </button>
-              <button
-                onClick={goToNext}
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-6 rounded-full text-5xl shadow-lg hover:bg-blue-500 transition duration-300"
-              >
-                &#8250;
-              </button>
             </div>
           </div>
         )}

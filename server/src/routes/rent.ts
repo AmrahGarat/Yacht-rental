@@ -13,12 +13,14 @@ const router = Router();
 
 router.get("/", validateSchema(getAllRentSchema), rentController.getAll);
 
+router.get("/feature", rentController.getFeatureRents);
+
 router.get("/:id", rentController.getById);
 
 router.post(
   "/",
   authorize({ isAdmin: true }),
-  upload.array("images", 10),
+  upload.array("images", 20),
   validateSchema(createRentSchema),
   rentController.create
 );
@@ -26,7 +28,7 @@ router.post(
 router.put(
   "/:id",
   authorize({ isAdmin: true }),
-  upload.array("images", 10),
+  upload.array("images", 20),
   validateSchema(editRentSchema),
   rentController.edit
 );

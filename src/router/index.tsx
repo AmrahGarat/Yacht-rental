@@ -15,6 +15,32 @@ import ReservationsPage from "@/pages/(business)/reservations";
 import DashboardReservationListPage from "@/pages/(dashboard)/reservation";
 import DashboardReviewListPage from "@/pages/(dashboard)/review";
 import ChatPage from "@/pages/(dashboard)/chat";
+import FAQPage from "@/pages/(business)/faq";
+import { Suspense, lazy } from "react";
+import CannesFilmFestivalEvent from "@/pages/(business)/events/components/corporateevents/eventpage/CannesFilmFestivalEvent";
+import CannesLionsEvent from "@/pages/(business)/events/components/corporateevents/eventpage/CannesLionsEvent";
+import MipcomEvent from "@/pages/(business)/events/components/corporateevents/eventpage/MipcomEvent";
+import AbuDhabiGrandPrixEvent from "@/pages/(business)/events/components/sportevents/eventpage/AbuDhabiGrandPrixEvent";
+import ErrorPage from "@/components/shared/ErrorPage";
+import MonacoEPrixEvent from "@/pages/(business)/events/components/sportevents/eventpage/MonacoEPrixEvent";
+import { FavoritesPage } from "@/pages/(business)/favorites";
+import AdminProfile from "@/pages/(dashboard)/profile";
+import ResetPassword from "@/pages/(business)/resetpassword";
+import UserProfile from "@/pages/(business)/userprofile";
+
+const EventsPage = lazy(() => import("@/pages/(business)/events/index"));
+const ArtBaselMiamiEvent = lazy(
+  () =>
+    import(
+      "@/pages/(business)/events/components/corporateevents/eventpage/ArtBaselMiamiEvent"
+    )
+);
+
+const adminData = {
+  name: "Amrah Garayev",
+  email: "mr.amrahgarayev@gmail.com",
+  role: "Admin",
+};
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +58,124 @@ export const router = createBrowserRouter([
       {
         path: paths.DETAIL(),
         element: <RentDetailPage />,
+      },
+      {
+        path: paths.QUESTIONS,
+        element: <FAQPage />,
+      },
+      {
+        path: paths.FAVORITES,
+        element: <FavoritesPage />,
+      },
+      {
+        path: paths.RESET_PASSWORD,
+        element: <ResetPassword />,
+      },
+      {
+        path: paths.ADMINPROFILE,
+        element: <AdminProfile {...adminData} />,
+      },
+      {
+        path: paths.PROFILE,
+        element: <UserProfile />,
+      },
+      {
+        path: paths.EVENTS.MAIN,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+              </div>
+            }
+          >
+            <EventsPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: paths.EVENTS.ARTBASEL,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+              </div>
+            }
+          >
+            <ArtBaselMiamiEvent />
+          </Suspense>
+        ),
+      },
+      {
+        path: paths.EVENTS.CANNESF,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+              </div>
+            }
+          >
+            <CannesFilmFestivalEvent />
+          </Suspense>
+        ),
+      },
+      {
+        path: paths.EVENTS.CANNESL,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+              </div>
+            }
+          >
+            <CannesLionsEvent />
+          </Suspense>
+        ),
+      },
+      {
+        path: paths.EVENTS.MIPCOM,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+              </div>
+            }
+          >
+            <MipcomEvent />
+          </Suspense>
+        ),
+      },
+      {
+        path: paths.EVENTS.ABUDHABI,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+              </div>
+            }
+          >
+            <AbuDhabiGrandPrixEvent />
+          </Suspense>
+        ),
+      },
+      {
+        path: paths.EVENTS.MONACOE,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+              </div>
+            }
+          >
+            <MonacoEPrixEvent />
+          </Suspense>
+        ),
       },
       {
         path: "",
@@ -84,6 +228,10 @@ export const router = createBrowserRouter([
             element: <ChatPage />,
           },
         ],
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
       },
     ],
   },

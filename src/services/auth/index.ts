@@ -2,6 +2,8 @@ import {
   RegisterRequestPayloadType,
   AuthResponseType,
   LoginRequestPayloadType,
+  ForgotPasswordRequestPayloadType,
+  ResetPasswordRequestPayloadType,
 } from "./types";
 import axiosInstance from "../axiosInstance";
 
@@ -20,6 +22,21 @@ const getCurrentUser = async () => {
   return await axiosInstance.get("/auth/current-user");
 };
 
-const authService = { login, register, getCurrentUser, logout };
+const forgotPassword = async (payload: ForgotPasswordRequestPayloadType) => {
+  return await axiosInstance.post("/auth/forgot-password", payload);
+};
+
+const resetPassword = async (payload: ResetPasswordRequestPayloadType) => {
+  return await axiosInstance.post("/auth/reset-password", payload);
+};
+
+const authService = {
+  login,
+  register,
+  getCurrentUser,
+  logout,
+  forgotPassword,
+  resetPassword,
+};
 
 export default authService;

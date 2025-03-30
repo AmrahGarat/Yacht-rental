@@ -1,11 +1,6 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { paths } from "@/constants/paths";
-
-import HeartEmptyImg from "@/assets/icons/heart-empty.svg";
-import HeartFilledRedImg from "@/assets/icons/heart-filled-red.svg";
-// import YachtFlyingFoxImg from "@/assets/images/yacht-flying-fox.jpeg";
 import GuestsSizeImg from "@/assets/icons/guests-size.svg";
 import BedroomNumberImg from "@/assets/icons/bedroom-number.svg";
 import CrewSizeImg from "@/assets/icons/crew-size.svg";
@@ -17,6 +12,13 @@ import { useSelector } from "react-redux";
 import { selectUserData } from "@/store/features/userSlice";
 import { toast } from "sonner";
 import { ModalTypeEnum, useDialog } from "@/hooks/useDialog";
+import {
+  addToFavorites,
+  removeFromFavorites,
+  getFavorites,
+} from "@/services/favorite";
+import { useEffect, useState } from "react";
+import { Heart } from "lucide-react";
 
 type Props = {
   rent: Rent;
@@ -25,9 +27,48 @@ type Props = {
 export const RentCard = ({ rent }: Props) => {
   const { user } = useSelector(selectUserData);
   const { openDialog } = useDialog();
-  const [isLiked, setIsLiked] = useState(false);
-  // const navigate = useNavigate();
-  // const id = "asdc-12d1w-12d1w-12d1w-12d1w";
+  const userId = user?._id;
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    if (!userId || !rent?._id) return;
+
+    const checkFavorite = async () => {
+      try {
+        const favorites = await getFavorites(userId);
+        const isFav = favorites.some(
+          (fav: { rent: { _id: string } }) => fav.rent?._id === rent._id
+        );
+        setIsFavorite(isFav);
+      } catch (error) {
+        console.error("Error during control of favorites:", error);
+      }
+    };
+
+    checkFavorite();
+  }, [userId, rent?._id]);
+
+  const toggleFavorite = async () => {
+    if (!userId || !rent?._id) return;
+
+    try {
+      if (isFavorite) {
+        await removeFromFavorites(userId, rent._id);
+      } else {
+        await addToFavorites(userId, rent._id);
+      }
+
+      setIsFavorite(!isFavorite);
+
+      // Güncellenen favori listesini al ve konsola yazdır
+      const updatedFavorites = await getFavorites(userId);
+      console.log("Güncellenmiş Favoriler:", updatedFavorites);
+    } catch (error) {
+      console.error("Favori işlemi sırasında hata oluştu:", error);
+    }
+  };
+
   const {
     _id,
     name,
@@ -47,7 +88,7 @@ export const RentCard = ({ rent }: Props) => {
       <Link to={paths.DETAIL(_id)}>
         <img
           src={mainImage}
-          alt="yacht flying fox"
+          alt={name}
           className="pb-2 rounded-[20px] cursor-pointer"
         />
       </Link>
@@ -60,44 +101,57 @@ export const RentCard = ({ rent }: Props) => {
             {name}
           </Link>
           <p>{category.name}</p>
+          {userId && (
+            <button
+              onClick={toggleFavorite}
+              className="absolute top-4 right-4 p-2 bg-white dark:bg-gray-700 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+            >
+              {isFavorite ? (
+                <Heart className="w-4 lg:w-6 h-4 lg:h-6 text-red-600 fill-red-600" />
+              ) : (
+                <Heart className="w-4 lg:w-6 h-4 lg:h-6 text-gray-500 dark:text-gray-300" />
+              )}
+            </button>
+          )}
         </div>
-        <button onClick={() => setIsLiked(!isLiked)}>
-          <img src={isLiked ? HeartFilledRedImg : HeartEmptyImg} alt="heart" />
-        </button>
       </div>
-      <div className="flex justify-between items-center p-4">
+      <div className="flex justify-between items-center p-2 md:p-4">
         <div className="flex gap-1 items-center">
           <img src={YachtSizeImg} alt="yacht-size" className="w-3 md:w-5" />
-          <p className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]">
+          <p className="text-[#9499A6] text-xs md:text-sm lg:text-sm xl:text-base leading-[140%]">
             {size}” ft
           </p>
         </div>
         <div className="flex gap-1 items-center">
-          <img src={GuestsSizeImg} alt="guests-size" className="w-5" />
-          <p className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]">
+          <img src={GuestsSizeImg} alt="guests-size" className="w-3 md:w-5" />
+          <p className="text-[#9499A6] text-xs md:text-sm lg:text-sm xl:text-base leading-[140%]">
             {capacity} Guests
           </p>
         </div>
         <div className="flex gap-1 items-center">
-          <img src={BedroomNumberImg} alt="bedroom-number" className="w-5" />
-          <p className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]">
+          <img
+            src={BedroomNumberImg}
+            alt="bedroom-number"
+            className="w-3 md:w-5"
+          />
+          <p className="text-[#9499A6] text-xs md:text-sm lg:text-sm xl:text-base leading-[140%]">
             {cabins} Cabins
           </p>
         </div>
         <div className="flex gap-1 items-center">
-          <img src={CrewSizeImg} alt="crew-size" className="w-5" />
-          <p className="text-[#9499A6] text-sm md:text-base lg:text-sm xl:text-base leading-[140%]">
+          <img src={CrewSizeImg} alt="crew-size" className="w-3 md:w-5" />
+          <p className="text-[#9499A6] text-xs md:text-sm lg:text-sm xl:text-base leading-[140%]">
             {crew} Crew
           </p>
         </div>
       </div>
-      <p className="text-[#9499A6] text-sm leading-[160%] p-4 overflow-hidden overflow-ellipsis line-clamp-3">
+      <p className="text-[#9499A6] text-xs md:text-sm leading-[160%] p-2 md:p-4 overflow-hidden overflow-ellipsis line-clamp-3">
         {description}
       </p>
 
       <div className="flex justify-between items-center p-4">
-        <p className="text-secondary text-xl">
-          {formatPrice(price)} / <span className="text-sm">week</span>
+        <p className="text-secondary text-md md:text-xl">
+          {formatPrice(price)} / <span className="text-sm md:text-md">Day</span>
         </p>
         <Button asChild>
           <Link

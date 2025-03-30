@@ -9,12 +9,13 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "@/services/rents";
 import { QUERY_KEYS } from "@/constants/query-keys";
-import { Spinner } from "@/components/shared/Spinner";
 import { Button } from "@/components/ui/button";
 import { paths } from "@/constants/paths";
+import { useEffect, useState } from "react";
 
 const RentDetailPage = () => {
   const { id } = useParams<{ id: string }>();
+  const [loading, setLoading] = useState(true);
 
   const { data: featuredData, isLoading: featuredLoading } = useQuery({
     queryKey: [QUERY_KEYS.FEATURED_RENTS],
@@ -22,16 +23,22 @@ const RentDetailPage = () => {
   });
 
   const featuredRents = featuredData?.data.items;
-  const { data, isLoading, isError } = useQuery({
+  const { data, isError } = useQuery({
     queryKey: [QUERY_KEYS.RENT_DETAIL, id],
     queryFn: () => rentService.getById(id!),
   });
 
-  if (isLoading) {
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  if (loading) {
     return (
-      <div className="flex flex-col justify-center items-center mt-28">
-        <Spinner />
-        <p>Loading...</p>
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
       </div>
     );
   }
@@ -52,10 +59,10 @@ const RentDetailPage = () => {
     );
   }
   return (
-    <div className="pb-8 lg:pb-16">
+    <div>
       <YachtMainPictutes images={rent.images} />
       <YachtInformation rent={rent} />
-      <YachtOtherPictures />
+      <YachtOtherPictures images={rent.images} />
       <YachtAmenities />
       <ReviewsSection reviews={rent.reviews} />
       <FeaturedYachts isLoading={featuredLoading} rents={featuredRents} />

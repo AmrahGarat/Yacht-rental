@@ -12,4 +12,6 @@ export const QUERY_KEYS = {
   USER_CONVERSATION: "userConversation",
   ADMIN_CHAT: "adminChat",
   ADMIN_CONVERSATIONS: "adminConversations",
+  FAVORITES: "favorites",
+  DASHBOARD_COUNT: "dashboardCount",
 };
